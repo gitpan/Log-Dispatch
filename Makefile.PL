@@ -118,11 +118,15 @@ WriteMakefile(
 		       'Dispatch/Syslog.pm' => '$(INST_LIBDIR)/Dispatch/Syslog.pm',
 		       'Dispatch/Email.pm' => '$(INST_LIBDIR)/Dispatch/Email.pm',
 		       'Dispatch/Email/MailSend.pm' => '$(INST_LIBDIR)/Dispatch/Email/MailSend.pm',
+		       'Dispatch/Email/MailSender.pm' => '$(INST_LIBDIR)/Dispatch/Email/MailSender.pm',
 		       'Dispatch/Email/MailSendmail.pm' => '$(INST_LIBDIR)/Dispatch/Email/MailSendmail.pm',
 		       'Dispatch/Email/MIMELite.pm' => '$(INST_LIBDIR)/Dispatch/Email/MIMELite.pm',
 
 		       %extra_pms,
 		      },
+
+	      PREREQ_PM => { 'Params::Validate' => 0.15,
+			   },
 
 	      AUTHOR => 'Dave Rolsky <autarch@urth.org>',
 	      ABSTRACT => 'Uniform logging interface to multiple outputs',

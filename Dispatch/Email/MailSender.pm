@@ -1,60 +1,93 @@
-package Log::Dispatch::Email::MailSendmail;
+package Log::Dispatch::Email::MailSender;
+
+# By: Joseph Annino
+# (c) 2002
+# Licensed under the same terms as Perl
+#
 
 use strict;
 
 use Log::Dispatch::Email;
 
 use base qw( Log::Dispatch::Email );
+use fields qw( buffer buffered from subject to smtp );
 
-use Mail::Sendmail ();
+use Carp ();
+use Mail::Sender ();
+use Data::Dumper;
 
 use vars qw[ $VERSION ];
 
-$VERSION = sprintf "%d.%02d", q$Revision: 1.19 $ =~ /: (\d+)\.(\d+)/;
+$VERSION = sprintf "%d.%02d", q$Revision: 1.4 $ =~ /: (\d+)\.(\d+)/;
 
 1;
+
+sub new
+{
+    my $proto = shift;
+    my $class = ref $proto || $proto;
+
+    my %p = @_;
+
+    my $smtp = delete $p{smtp} || 'localhost';
+
+    my $self = $class->SUPER::new(%p);
+
+    $self->{smtp} = $smtp;
+
+    return $self;
+}
 
 sub send_email
 {
     my $self = shift;
     my %p = @_;
 
-    my %mail = ( To      => (join ',', @{ $self->{to} }),
-		 Subject => $self->{subject},
-		 Message => $p{message},
-		 # Mail::Sendmail insists on having this parameter.
-		 From    => $self->{from} || 'LogDispatch@foo.bar',
-	       );
-
-    unless ( Mail::Sendmail::sendmail(%mail) )
+    eval
     {
-	warn "Error sending mail: $Mail::Sendmail::error" if $^W;
-    }
+        my $sender =
+            Mail::Sender->new( { from => $self->{from} || 'LogDispatch@foo.bar',
+                                 replyto => $self->{from} || 'LogDispatch@foo.bar',
+                                 to => ( join ',', @{ $self->{to} } ),
+                                 subject => $self->{subject},
+                                 smtp => $self->{smtp},
+                                 ( $^W ? ( debug => \*STDERR ) : () ),
+                               } );
+
+        die "Error sending mail ($sender): $Mail::Sender::Error"
+            unless ref $sender;
+
+        ref $sender->MailMsg( { msg => $p{message} } )
+            or die "Error sending mail: $Mail::Sender::Error";
+    };
+
+    warn $@ if $@ && $^W;
 }
 
 __END__
 
 =head1 NAME
 
-Log::Dispatch::Email::MailSendmail - Subclass of Log::Dispatch::Email that uses the Mail::Sendmail module
+Log::Dispatch::Email::MailSender - Subclass of Log::Dispatch::Email that uses the Mail::Sender module
 
 =head1 SYNOPSIS
 
-  use Log::Dispatch::Email::MailSendmail;
+  use Log::Dispatch::Email::MailSender;
 
   my $email =
-      Log::Dispatch::Email::MailSendmail->new
+      Log::Dispatch::Email::MailSender->new
           ( name => 'email',
             min_level => 'emerg',
             to => [ qw( foo@bar.com bar@baz.org ) ],
-            subject => 'Oh no!!!!!!!!!!!', );
+            subject => 'Oh no!!!!!!!!!!!',
+            smtp => 'mail.foo.bar' );
 
   $email->log( message => 'Something bad is happening', level => 'emerg' );
 
 =head1 DESCRIPTION
 
 This is a subclass of Log::Dispatch::Email that implements the
-send_email method using the Mail::Sendmail module.
+send_email method using the Mail::Sender module.
 
 =head1 METHODS
 
@@ -96,7 +129,7 @@ addresses.  Required.
 A string containing an email address.  This is optional and may not
 work with all mail sending methods.
 
-NOTE: The Mail::Sendmail module requires an address be passed to it to
+NOTE: The Mail::Sender module requires an address be passed to it to
 set this in the mail it sends.  We pass in 'LogDispatch@foo.bar' as
 the default.
 
@@ -105,6 +138,11 @@ the default.
 This determines whether the object sends one email per message it is
 given or whether it stores them up and sends them all at once.  The
 default is to buffer messages.
+
+=item -- smtp ($)
+
+A string containing the network address of the SMTP server to use for
+sending the email.  This defaults to localhost.
 
 =item -- callbacks( \& or [ \&, \&, ... ] )
 
@@ -126,7 +164,9 @@ minimum level.
 
 =back
 
-=head1 AUTHOR
+=head1 AUTHORS
+
+Joseph Annino. <jannino@jannino.com>
 
 Dave Rolsky, <autarch@urth.org>
 

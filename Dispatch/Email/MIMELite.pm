@@ -11,42 +11,45 @@ use MIME::Lite;
 
 use vars qw[ $VERSION ];
 
-$VERSION = sprintf "%d.%02d", q$Revision: 1.15 $ =~ /: (\d+)\.(\d+)/;
+$VERSION = sprintf "%d.%02d", q$Revision: 1.19 $ =~ /: (\d+)\.(\d+)/;
 
 1;
 
 sub send_email
 {
     my $self = shift;
-    my %params = @_;
+    my %p = @_;
 
     my %mail = ( To      => (join ',', @{ $self->{to} }),
 		 Subject => $self->{subject},
 		 Type    => 'TEXT',
-		 Data    => $params{message},
+		 Data    => $p{message},
 	       );
 
     $mail{From} = $self->{from} if defined $self->{from};
 
-    MIME::Lite->new(%mail)->send
-	or Carp::carp("Error sending mail");
+    unless ( MIME::Lite->new(%mail)->send )
+    {
+	warn "Error sending mail with MIME::Lite" if $^W;
+    }
 }
 
 __END__
 
 =head1 NAME
 
-Log::Dispatch::Email::MIMELite - Subclass of Log::Dispatch::Email that
-uses the MIME::Lite module
+Log::Dispatch::Email::MIMELite - Subclass of Log::Dispatch::Email that uses the MIME::Lite module
 
 =head1 SYNOPSIS
 
   use Log::Dispatch::Email::MIMELite;
 
-  my $email = Log::Dispatch::Email::MIMELite->new( name => 'email',
-                                                   min_level => 'emerg',
-                                                   to => [ qw( foo@bar.com bar@baz.org ) ],
-                                                   subject => 'Oh no!!!!!!!!!!!', );
+  my $email =
+      Log::Dispatch::Email::MIMELite->new
+          ( name => 'email',
+            min_level => 'emerg',
+            to => [ qw( foo@bar.com bar@baz.org ) ],
+            subject => 'Oh no!!!!!!!!!!!', );
 
   $email->log( message => "Something bad is happening\n", level => 'emerg' );
 
@@ -124,12 +127,5 @@ minimum level.
 =head1 AUTHOR
 
 Dave Rolsky, <autarch@urth.org>
-
-=head1 SEE ALSO
-
-Log::Dispatch, Log::Dispatch::ApacheLog, Log::Dispatch::Email,
-Log::Dispatch::Email::MailSend, Log::Dispatch::Email::MailSendmail,
-Log::Dispatch::File, Log::Dispatch::Handle, Log::Dispatch::Output,
-Log::Dispatch::Screen, Log::Dispatch::Syslog
 
 =cut
