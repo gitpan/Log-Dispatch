@@ -9,7 +9,7 @@ use base qw( Log::Dispatch::Base );
 
 use Carp ();
 
-$VERSION = '2.01';
+$VERSION = '2.02';
 
 1;
 
@@ -102,6 +102,16 @@ sub _log_to
     }
 }
 
+sub output
+{
+    my $self = shift;
+    my $name = shift;
+
+    return unless exists $self->{outputs}{$name};
+
+    return $self->{outputs}{$name};
+}
+
 sub level_is_valid
 {
     shift;
@@ -191,6 +201,11 @@ Sends the message only to the named object.
 
 Returns true or false to indicate whether or not the given string is a
 valid log level.  Can be called as either a class or object method.
+
+=item * output( $name )
+
+Returns an output of the given name.  Returns undef or an empty list,
+depending on context, if the given output does not exist.
 
 =back
 
@@ -321,6 +336,11 @@ text file similar (or so I'm told) to how it is done with log4j.
 
 Log::Dispatch::DBI, also written by Tatsuhiko Miyagawa.  Log output to a
 database table.
+
+=head2 Log::Log4perl
+
+An implementation of Java's log4j API in Perl, using Log::Dispatch to
+do the actual logging.  Created by Mike Schilli and Kevin Goess.
 
 =head2 Log::Agent
 
