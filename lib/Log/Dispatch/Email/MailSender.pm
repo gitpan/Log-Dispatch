@@ -14,7 +14,6 @@ use fields qw( buffer buffered from subject to smtp );
 
 use Carp ();
 use Mail::Sender ();
-use Data::Dumper;
 
 use vars qw[ $VERSION ];
 
@@ -51,7 +50,6 @@ sub send_email
                                  to => ( join ',', @{ $self->{to} } ),
                                  subject => $self->{subject},
                                  smtp => $self->{smtp},
-                                 ( $^W ? ( debug => \*STDERR ) : () ),
                                } );
 
         die "Error sending mail ($sender): $Mail::Sender::Error"
