@@ -1,15 +1,17 @@
-package Log::Dispatch::Screen;
+package Log::Dispatch::ApacheLog;
 
 use strict;
 
 use Log::Dispatch::Output;
 
 use base qw( Log::Dispatch::Output );
-use fields qw( stderr );
+use fields qw( apache_log );
+
+use Apache::Log;
 
 use vars qw[ $VERSION ];
 
-$VERSION = sprintf "%d.%03d", q$Revision: 1.11 $ =~ /: (\d+)\.(\d+)/;
+$VERSION = sprintf "%d.%03d", q$Revision: 1.10 $ =~ /: (\d+)\.(\d+)/;
 
 1;
 
@@ -17,6 +19,7 @@ sub new
 {
     my $proto = shift;
     my $class = ref $proto || $proto;
+
     my %params = @_;
 
     my $self;
@@ -26,46 +29,62 @@ sub new
     }
 
     $self->_basic_init(%params);
-    $self->{stderr} = $params{stderr} if $params{stderr};
+    $self->{apache_log} = $params{apache}->server->log;
 
     return $self;
 }
 
 sub log_message
 {
-    my Log::Dispatch::Screen $self = shift;
+    my Log::Dispatch::ApacheLog $self = shift;
     my %params = @_;
 
-    if ($self->{stderr})
+    my $method;
+
+    if ($params{level} eq 'emergency')
     {
-	print STDERR $params{message};
+	$method = 'emerg';
+    }
+    elsif ( $params{level} eq 'critical' )
+    {
+	$method = 'crit';
+    }
+    elsif( $params{level} eq 'err' )
+    {
+	$method = 'error';
+    }
+    elsif( $params{level} eq 'warning' )
+    {
+	$method = 'warn';
     }
     else
     {
-	print $params{message};
+	$method = $params{level};
     }
+
+    $self->{apache_log}->$method( $params{message} );
 }
 
 __END__
 
 =head1 NAME
 
-Log::Dispatch::Screen - Object for logging to the screen
+Log::Dispatch::ApacheLog - Object for logging to Apache::Log objects
 
 =head1 SYNOPSIS
 
-  use Log::Dispatch::Screen;
+  use Log::Dispatch::ApacheLog;
 
-  my $screen = Log::Dispatch::Screen->new( name      => 'screen',
-                                           min_level => 'debug',
-                                           stderr    => 1 );
+  my $handle = Log::Dispatch::ApacheLog->new( name      => 'apache log',
+                                              min_level => 'emerg',
+                                              apache    => $r );
 
-  $screen->log( level => 'alert', message => "I'm searching the city for sci-fi wasabi\n" );
+  $handle->log( level => 'emerg', message => 'Kaboom' );
 
 =head1 DESCRIPTION
 
-This module provides an object for logging to the screen (really
-STDOUT or STDERR).
+This module allows you to pass messages Apache's log object,
+represented by the Apache::Log class.
 
 =head1 METHODS
 
@@ -92,11 +111,9 @@ Log::Dispatch documentation for more information.  This is not
 required.  By default the maximum is the highest possible level (which
 means functionally that the object has no maximum).
 
-=item -- stderr (0 or 1)
+=item -- apache ($)
 
-Indicates whether or not logging information should go to STDERR.  If
-false, logging information is printed to STDOUT instead.  This
-defaults to true.
+The apache object.
 
 =item -- callbacks( \& or [ \&, \&, ... ] )
 
@@ -127,9 +144,9 @@ Dave Rolsky, <autarch@urth.org>
 
 =head1 SEE ALSO
 
-Log::Dispatch, Log::Dispatch::ApacheLog, Log::Dispatch::Email,
-Log::Dispatch::Email::MailSend, Log::Dispatch::Email::MailSendmail,
-Log::Dispatch::Email::MIMELite, Log::Dispatch::File,
-Log::Dispatch::Handle, Log::Dispatch::Output, Log::Dispatch::Syslog
+Log::Dispatch, Log::Dispatch::Email, Log::Dispatch::Email::MailSend,
+Log::Dispatch::Email::MailSendmail, Log::Dispatch::Email::MIMELite,
+Log::Dispatch::File, Log::Dispatch::Output, Log::Dispatch::Screen,
+Log::Dispatch::Syslog, Apache::Log
 
 =cut
