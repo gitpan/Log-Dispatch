@@ -14,15 +14,9 @@ use vars qw[ $VERSION ];
 $VERSION = sprintf "%d.%02d", q$Revision: 1.22 $ =~ /: (\d+)\.(\d+)/;
 
 # Prevents death later on if IO::File can't export this constant.
-BEGIN
-{
-    my $exists;
-    eval { $exists = O_APPEND(); };
+*O_APPEND = \&APPEND unless defined &O_APPEND;
 
-    *O_APPEND = \&APPEND unless defined $exists;
-}
-
-sub APPEND {;};
+sub APPEND { 0 }
 
 1;
 
@@ -90,7 +84,7 @@ sub _open_file
     my $fh = do { local *FH; *FH; };
 
     open $fh, "$self->{mode}$self->{filename}"
-	     or die "Can't write to '$self->{filename}': $!";
+        or die "Cannot write to '$self->{filename}': $!";
 
     if ( $self->{autoflush} )
     {
@@ -118,14 +112,17 @@ sub log_message
     {
       	$self->_open_file;
 	$fh = $self->{fh};
-      	print $fh $p{message};
+      	print $fh $p{message}
+            or die "Cannot write to '$self->{filename}': $!";
 
-      	close $fh;
+      	close $fh
+            or die "Cannot close '$self->{filename}': $!";
     }
     else
     {
         $fh = $self->{fh};
-        print $fh $p{message};
+        print $fh $p{message}
+            or die "Cannot write to '$self->{filename}': $!";
     }
 }
 
@@ -172,33 +169,35 @@ Log::Dispatch::* system.
 This method takes a hash of parameters.  The following options are
 valid:
 
-=item -- name ($)
+=over 8
+
+=item * name ($)
 
 The name of the object (not the filename!).  Required.
 
-=item -- min_level ($)
+=item * min_level ($)
 
 The minimum logging level this object will accept.  See the
 Log::Dispatch documentation for more information.  Required.
 
-=item -- max_level ($)
+=item * max_level ($)
 
 The maximum logging level this obejct will accept.  See the
 Log::Dispatch documentation for more information.  This is not
 required.  By default the maximum is the highest possible level (which
 means functionally that the object has no maximum).
 
-=item -- filename ($)
+=item * filename ($)
 
 The filename to be opened for writing.
 
-=item -- mode ($)
+=item * mode ($)
 
 The mode the file should be opened with.  Valid options are 'write',
 '>', 'append', '>>', or the relevant constants from Fcntl.  The
 default is 'write'.
 
-=item -- close_after_write ($)
+=item * close_after_write ($)
 
 Whether or not the file should be closed after each write.  This
 defaults to false.
@@ -206,11 +205,11 @@ defaults to false.
 If this is true, then the mode will aways be append, so that the file
 is not re-written for each new message.
 
-=item -- autoflush ($)
+=item * autoflush ($)
 
 Whether or not the file should be autoflushed.  This defaults to true.
 
-=item -- permissions ($)
+=item * permissions ($)
 
 If the file does not already exist, the permissions that it should
 be created with.  Optional.  The argument passed must be a valid
@@ -229,7 +228,7 @@ Then the resulting file will end up with permissions like this:
 
 which is probably not what you want.
 
-=item -- callbacks( \& or [ \&, \&, ... ] )
+=item * callbacks( \& or [ \&, \&, ... ] )
 
 This parameter may be a single subroutine reference or an array
 reference of subroutine references.  These callbacks will be called in
@@ -241,6 +240,8 @@ The callbacks are expected to modify the message and then return a
 single scalar containing that modified message.  These callbacks will
 be called when either the C<log> or C<log_to> methods are called and
 will only be applied to a given message once.
+
+=back
 
 =item * log_message( message => $ )
 
