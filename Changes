@@ -1,3 +1,10 @@
+1.77
+
+- The convenience methods named after the log levels ($log->debug,
+$log->alert, etc.) can now take a list of scalars.  These are joined
+together via "@_" (note that this will implicitly do: join $", @_).
+Suggested by Tim Ayers.
+
 1.76
 
 - New method: Log::Dispatch->level_is_valid($string).  Suggested by
