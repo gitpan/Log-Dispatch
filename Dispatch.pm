@@ -5,13 +5,24 @@ require 5.005;
 use strict;
 use vars qw[ $VERSION ];
 
+use base qw( Log::Dispatch::Base );
 use fields qw( outputs callbacks );
 
 use Carp ();
 
-$VERSION = '1.2';
+$VERSION = '1.6';
 
 1;
+
+BEGIN
+{
+    no strict 'refs';
+    foreach my $l ( qw( debug info notice warning err error crit critical alert emerg emergency ) )
+    {
+	*{$l} = sub { my Log::Dispatch $self = shift;
+		      $self->log( level => $l, message => shift ); };
+    }
+}
 
 sub new
 {
@@ -25,17 +36,8 @@ sub new
 	$self = bless [ \%{"${class}::FIELDS"} ], $class;
     }
 
-    if (exists $params{callbacks})
-    {
-	# If it's not an array ref of some sort its a code ref and this'll
-	# cause an error.
-	my @cb = eval { @{ $params{callbacks} }; };
-
-	# Must have been a code ref.
-	@cb = $params{callbacks} unless @cb;
-
-	$self->{callbacks} = \@cb;
-    }
+    my @cb = $self->_get_callbacks(%params);
+    $self->{callbacks} = \@cb if @cb;
 
     return $self;
 }
@@ -104,20 +106,6 @@ sub _log_to
     }
 }
 
-sub _apply_callbacks
-{
-    my Log::Dispatch $self = shift;
-    my %params = @_;
-
-    my $msg = $params{message};
-    foreach my $cb ( @{ $self->{callbacks} } )
-    {
-	$msg = $cb->( message => $msg );
-    }
-
-    return $msg;
-}
-
 __END__
 
 =head1 NAME
@@ -132,7 +120,7 @@ Log::Dispatch - Dispatches messages to multiple Log::Dispatch::* objects
 
   $dispatcher->add( Log::Dispatch::File->new( name => 'file1',
                                               min_level => 'debug',
-                                              file => 'logfile' ) );
+                                              filename => 'logfile' ) );
 
   $dispatcher->log( level => 'info',
                     message => 'Blah, blah' );
@@ -167,7 +155,9 @@ It's a hash in case I need to add parameters in the future.
 The callbacks are expected to modify the message and then return a
 single scalar containing that modified message.  These callbacks will
 be called when either the C<log> or C<log_to> methods are called and
-will only be applied to a given message once.
+will only be applied to a given message once.  If they do not return
+the message then you will get no output.  Make sure to return the
+message!
 
 =item * add( Log::Dispatch::* OBJECT )
 
@@ -195,6 +185,30 @@ C<log_to> method repeatedly).
 Sends the message only to the named object.
 
 =back
+
+=head1 CONVENIENCE METHODS
+
+Version 1.6 of Log::Dispatch adds a number of convenience methods for
+logging.  You may now call any valid log level (including valid
+abbreviations) as a method on the Log::Dispatch object with a single
+argument that is the message to be logged.  This is converted into a
+call to the C<log> method with the appropriate level.
+
+For example:
+
+ $dispatcher->alert('Strange data in incoming request');
+
+translates to:
+
+ $dispatcher->log( level => 'alert', message => 'Strange data in incoming request' );
+
+One important caveat about these methods is that its not that forwards
+compatible.  If I were to add more parameters to the C<log> call, it
+is unlikely that these could be integrated into these methods without
+breaking existing uses.  This probably means that any future
+parameters to the C<log> method will never be integrated into these
+convenience methods.  OTOH, I don't see any immediate need to expand
+the parameters given to the C<log> method.
 
 =head2 Log Levels
 
@@ -259,7 +273,7 @@ would tack a newline onto the end of all messages that don't have one.
 This will never happen.  There are several reasons for this.  First of
 all, Log::Dispatch was designed as a simple system to broadcast a
 message to multiple outputs.  It does not attempt to understand the
-message in any way at all.  Adding a newline applies an attempt to
+message in any way at all.  Adding a newline implies an attempt to
 understand something about the message and I don't want to go there.
 Secondly, this is not very cross-platform and I don't want to go down
 the road of testing Config values to figure out what to tack onto

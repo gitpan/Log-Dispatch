@@ -1,9 +1,11 @@
 MANIFEST
 README
+Changes
 Makefile.PL
 test.pl
 
 Dispatch.pm
+Dispatch/Base.pm
 Dispatch/File.pm
 Dispatch/Handle.pm
 Dispatch/Email.pm
