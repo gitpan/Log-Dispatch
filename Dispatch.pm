@@ -10,7 +10,7 @@ use fields qw( outputs callbacks );
 
 use Carp ();
 
-$VERSION = '1.77';
+$VERSION = '1.78';
 
 1;
 
@@ -329,5 +329,9 @@ Log::Dispatch::Email::MailSend, Log::Dispatch::Email::MailSendmail,
 Log::Dispatch::Email::MIMELite, Log::Dispatch::File,
 Log::Dispatch::Handle, Log::Dispatch::Output, Log::Dispatch::Screen,
 Log::Dispatch::Syslog
+
+Log::Agent - similar capabilities with a different interface.  If you
+like what Params::Validate does but not its 'feel' try this one
+instead.
 
 =cut

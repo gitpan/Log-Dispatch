@@ -35,6 +35,11 @@ use Log::Dispatch::Screen;
 
 use IO::File;
 
+if ( eval { require mod_perl } )
+{
+    require Log::Dispatch::ApacheLog;
+}
+
 require Install::TestConfig;
 
 $main::loaded = 1;
