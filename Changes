@@ -1,3 +1,12 @@
+2.00 ** BACKWARDS INCOMPATIBILITY ALERT **
+
+- Use a standard hash reference for objects instead of pseudo-hashes.
+** THIS MAY BREAK EXISTING SUBCLASSES **.
+
+- Log::Dispatch::Screen claimed it defaulted to using STDERR but it
+was lying, it defaulted to using STDOUT.  This has been changed so
+that it really does default to STDERR.  Reported by James FitzGibbon.
+
 1.80
 
 - Log::Dispatch::Syslog no longer requires syslog.ph for Perl >=

@@ -1,10 +1,7 @@
 use ExtUtils::MakeMaker qw( prompt WriteMakefile );
 
 # Saves some headaches for people later.
-BEGIN
-{
-    require 5.005;
-}
+use 5.005;
 
 {
     unless (-d './Install')
@@ -130,5 +127,5 @@ WriteMakefile(
 	      AUTHOR => 'Dave Rolsky <autarch@urth.org>',
 	      ABSTRACT => 'Uniform logging interface to multiple outputs',
 
-	      realclean => { FILES => './Install/TestConfig.pm ./Install' },
+	      realclean => { FILES => 'write_mode.tst ./Install/TestConfig.pm ./Install' },
 	     );

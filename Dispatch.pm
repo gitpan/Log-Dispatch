@@ -10,7 +10,7 @@ use fields qw( outputs callbacks );
 
 use Carp ();
 
-$VERSION = '1.80';
+$VERSION = '2.00';
 
 1;
 
@@ -19,7 +19,7 @@ BEGIN
     no strict 'refs';
     foreach my $l ( qw( debug info notice warning err error crit critical alert emerg emergency ) )
     {
-	*{$l} = sub { my Log::Dispatch $self = shift;
+	*{$l} = sub { my $self = shift;
 		      $self->log( level => $l, message => "@_" ); };
 	$LEVELS{$l} = 1;
     }
@@ -31,11 +31,7 @@ sub new
     my $class = ref $proto || $proto;
     my %params = @_;
 
-    my $self;
-    {
-	no strict 'refs';
-	$self = bless [ \%{"${class}::FIELDS"} ], $class;
-    }
+    my $self = bless {}, $class;
 
     my @cb = $self->_get_callbacks(%params);
     $self->{callbacks} = \@cb if @cb;
@@ -45,7 +41,7 @@ sub new
 
 sub add
 {
-    my Log::Dispatch $self = shift;
+    my $self = shift;
     my $object = shift;
 
     # Once 5.6 is more established start using the warnings module.
@@ -59,7 +55,7 @@ sub add
 
 sub remove
 {
-    my Log::Dispatch $self = shift;
+    my $self = shift;
     my $name = shift;
 
     return delete $self->{outputs}{$name};
@@ -67,7 +63,7 @@ sub remove
 
 sub log
 {
-    my Log::Dispatch $self = shift;
+    my $self = shift;
     my %params = @_;
 
     $params{message} = $self->_apply_callbacks(%params)
@@ -82,7 +78,7 @@ sub log
 
 sub log_to
 {
-    my Log::Dispatch $self = shift;
+    my $self = shift;
     my %params = @_;
 
     $params{message} = $self->_apply_callbacks(%params)
@@ -93,7 +89,7 @@ sub log_to
 
 sub _log_to
 {
-    my Log::Dispatch $self = shift;
+    my $self = shift;
     my %params = @_;
     my $name = delete $params{name};
 
@@ -157,7 +153,8 @@ the order they are given and passed a hash containing the following keys:
 
  ( message => $log_message, level => $log_level )
 
-It's a hash in case I need to add parameters in the future.
+In addition, any key/value pairs passed to a logging method will be
+passed onto your callback.
 
 The callbacks are expected to modify the message and then return a
 single scalar containing that modified message.  These callbacks will
@@ -318,6 +315,16 @@ messages if you so desire.
 Dominique Dumont has written Log::Dispatch::Tk which allows log
 messages to show up in a window.  This code is available from CPAN.
 
+=head2 Log::Dispatch::Config
+
+Allow configuration of logging via a text file similar (or so I'm
+told) to how it is done with log4j.
+
+=head2 Log::Agent
+
+A very different way of doing a lot of the things that Log::Dispatch
+does.
+
 =head1 AUTHOR
 
 Dave Rolsky, <autarch@urth.org>
@@ -329,6 +336,15 @@ Log::Dispatch::Email::MailSend, Log::Dispatch::Email::MailSendmail,
 Log::Dispatch::Email::MIMELite, Log::Dispatch::File,
 Log::Dispatch::Handle, Log::Dispatch::Output, Log::Dispatch::Screen,
 Log::Dispatch::Syslog
+
+Log::Dispatch::Tk, written by Dominique Dumont.  Log output to a Tk
+window.
+
+Log::Dispatch::Config, written by Miyagawa Tatsuhiko.  Configure all
+your logging via a config file, similar to log4j.
+
+Log::Dispatch::DBI, written by Miyagawa Tatsuhiko.  Log output to a
+DBI handle.
 
 Log::Agent - similar capabilities with a different interface.  If you
 like what Params::Validate does but not its 'feel' try this one
