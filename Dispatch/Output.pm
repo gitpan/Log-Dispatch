@@ -6,7 +6,9 @@ use fields qw( name min_level max_level level_names level_numbers );
 
 use vars qw[ $VERSION ];
 
-$VERSION = sprintf "%d.%03d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
+use Carp;
+
+$VERSION = sprintf "%d.%03d", q$Revision: 1.1.1.1 $ =~ /: (\d+)\.(\d+)/;
 
 1;
 
@@ -52,7 +54,7 @@ sub _basic_init
     # Either use the parameter supplies or just the highest possible
     # level.
     $self->{max_level} =
-	$self->_level_as_number( $params{max_level} ) || $#{ $self->{level_names} };
+	exists $params{max_level} ? $self->_level_as_number( $params{max_level} ) : $#{ $self->{level_names} };
 
     die "Invalid level specified for max_level" unless defined $self->{max_level};
 }
@@ -92,12 +94,16 @@ sub _level_as_number
     my Log::Dispatch::Output $self = shift;
     my $level = shift;
 
+    if (not defined $level)
+    {
+	Carp::croak "undefined value provided for log level";
+    }
+
     return $level if $level =~ /^\d$/;
 
     if (defined $level && not exists $self->{level_numbers}{$level})
     {
-	warn "$level is not a valid Log::Dispatch log level";
-	return;
+	Carp::croak "$level is not a valid Log::Dispatch log level";
     }
 
     return $self->{level_numbers}{$level};

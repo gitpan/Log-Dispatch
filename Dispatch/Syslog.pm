@@ -14,7 +14,7 @@ require 'syslog.ph';
 
 use vars qw[ $VERSION ];
 
-$VERSION = sprintf "%d.%03d", q$Revision: 1.3 $ =~ /: (\d+)\.(\d+)/;
+$VERSION = sprintf "%d.%03d", q$Revision: 1.1.1.1 $ =~ /: (\d+)\.(\d+)/;
 
 1;
 
@@ -87,7 +87,7 @@ Log::Dispatch::Syslog - Object for logging to system log.
                                          min_level => 'info',
                                          ident     => 'Yadda yadda' );
 
-  $file->log( level => 'emerg', -message => "Time to die." );
+  $file->log( level => 'emerg', message => "Time to die." );
 
 =head1 DESCRIPTION
 

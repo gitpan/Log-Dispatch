@@ -9,7 +9,7 @@ use fields qw( outputs );
 
 use Carp ();
 
-$VERSION = sprintf "%d.%03d", q$Revision: 1.7 $ =~ /: (\d+)\.(\d+)/;
+$VERSION = sprintf "%d.%03d", q$Revision: 1.1.1.1 $ =~ /: (\d+)\.(\d+)/;
 
 1;
 

@@ -1,7 +1,8 @@
 MANIFEST
+README
 Makefile.PL
 test.pl
-README
+
 Dispatch.pm
 Dispatch/File.pm
 Dispatch/Handle.pm
