@@ -1,12 +1,12 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.38.
+signed via the Module::Signature module, version 0.44.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
 
     % cpansign -v
 
-It would check each file's integrity, as well as the signature's
+It will check each file's integrity, as well as the signature's
 validity.  If "==> Signature verified OK! <==" is not displayed,
 the distribution may already have been compromised, and you should
 not run its Makefile.PL or Build.PL.
@@ -15,13 +15,13 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 3785224f5bf62ee9631461efdb6cdc6cf88dc7eb Build.PL
-SHA1 6fc2a1abfafd7cf3f42f36eb107cb04393baafca Changes
+SHA1 2880664be931bb52198cfdee5481ece4542aa7d8 Changes
 SHA1 9314b01360d8fa0f7086c869922610426a217b62 LICENSE
-SHA1 7b593c40b9543db9927b249106293332e31a6ad9 MANIFEST
-SHA1 d90ea32b8821727c36921c6a6867be6eedf1658b META.yml
-SHA1 7e9e2553e95913392d02f7841987ce8b9fb01d1d Makefile.PL
+SHA1 4c98cb21cab57e51a3ec3cee3a108ff469ab58c4 MANIFEST
+SHA1 e22f07df8ee70ca47e65bfb4707e7ca487c79a47 META.yml
+SHA1 a359d4072690a21ce63e4b393bdbc19d72b6be5a Makefile.PL
 SHA1 2d097f5f3357916264bcc3b3879e33dff3548926 README
-SHA1 683099bc5d37c8038770de075ef322feeadb562d lib/Log/Dispatch.pm
+SHA1 58fc0adfaeb997f12118942b78af68d756c75e7f lib/Log/Dispatch.pm
 SHA1 070d951378906bdee830b4d55d784d5c61440d04 lib/Log/Dispatch/ApacheLog.pm
 SHA1 02872aba0eba950abb939059f5e7d9b13653b19c lib/Log/Dispatch/Base.pm
 SHA1 2daad985db97743f2d1a5a461c1b71462e5830db lib/Log/Dispatch/Email.pm
@@ -34,13 +34,13 @@ SHA1 cf40a1630f6d1e71092b70f791892e1d8206f6e8 lib/Log/Dispatch/File/Locked.pm
 SHA1 815f1d43c5f104bb2cca56d3c2011a3bd6d44172 lib/Log/Dispatch/Handle.pm
 SHA1 a481828990a200ea8b1908403d50ec330980bfda lib/Log/Dispatch/Output.pm
 SHA1 082ac6cbe37c557d0ac94a7fa905377900cc34ef lib/Log/Dispatch/Screen.pm
-SHA1 4627be2ff00f52851e544b02efd862a080bdae83 lib/Log/Dispatch/Syslog.pm
-SHA1 44c1f2427196ea008f5adce380e71c9c0ddae91a t/01-basic.t
+SHA1 9b695c5be7afccb96fa0e508f133a77ef8cdea73 lib/Log/Dispatch/Syslog.pm
+SHA1 86957f682df6bdadc264abf567cfe1e509809857 t/01-basic.t
 SHA1 77232b92127c5f3069f8b6d349aa5ef49ca1b9d4 t/99-pod.t
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.2.4 (GNU/Linux)
+Version: GnuPG v1.4.1 (GNU/Linux)
 
-iD8DBQFAKlyi+4tbS/niBUoRAhXCAKDCYGvaBW3l1TfHaHTjU3R6T3shAACgvHsl
-7kxmH0Td9tSbV8jXFbb5srM=
-=c+v3
+iD8DBQFC555y3Or3ZzQuifMRArgtAKDjm3s3uLefoG3HKbCJLbpMOKesKQCgsss3
+2ALre0oyYNnnoMqu4rgQkYg=
+=WsNA
 -----END PGP SIGNATURE-----

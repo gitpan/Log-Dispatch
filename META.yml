@@ -1,8 +1,8 @@
---- #YAML:1.0
+---
 name: Log-Dispatch
-version: 2.10
+version: 2.11
 author:
-  - Dave Rolsky, <autarch@urth.org>
+  - 'Dave Rolsky, <autarch@urth.org>'
 abstract: Dispatches messages to one or more outputs
 license: perl
 requires:
@@ -11,7 +11,7 @@ requires:
 provides:
   Log::Dispatch:
     file: lib/Log/Dispatch.pm
-    version: 2.10
+    version: 2.11
   Log::Dispatch::ApacheLog:
     file: lib/Log/Dispatch/ApacheLog.pm
     version: 1.09
@@ -38,6 +38,7 @@ provides:
     version: 1.22
   Log::Dispatch::File::Locked:
     file: lib/Log/Dispatch/File/Locked.pm
+    version: ~
   Log::Dispatch::Handle:
     file: lib/Log/Dispatch/Handle.pm
     version: 1.16
@@ -50,4 +51,4 @@ provides:
   Log::Dispatch::Syslog:
     file: lib/Log/Dispatch/Syslog.pm
     version: 1.18
-generated_by: Module::Build version 0.23
+generated_by: Module::Build version 0.2701
