@@ -1,17 +1,21 @@
 ---
 name: Log-Dispatch
-version: 2.11
+version: 2.12
 author:
   - 'Dave Rolsky, <autarch@urth.org>'
 abstract: Dispatches messages to one or more outputs
 license: perl
+resources:
+  license: http://dev.perl.org/licenses/
 requires:
   Params::Validate: 0.15
   Test::More: 0
+build_requires:
+  Module::Build: 0
 provides:
   Log::Dispatch:
     file: lib/Log/Dispatch.pm
-    version: 2.11
+    version: 2.12
   Log::Dispatch::ApacheLog:
     file: lib/Log/Dispatch/ApacheLog.pm
     version: 1.09
@@ -38,7 +42,6 @@ provides:
     version: 1.22
   Log::Dispatch::File::Locked:
     file: lib/Log/Dispatch/File/Locked.pm
-    version: ~
   Log::Dispatch::Handle:
     file: lib/Log/Dispatch/Handle.pm
     version: 1.16
@@ -51,4 +54,7 @@ provides:
   Log::Dispatch::Syslog:
     file: lib/Log/Dispatch/Syslog.pm
     version: 1.18
-generated_by: Module::Build version 0.2701
+generated_by: Module::Build version 0.2805
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2

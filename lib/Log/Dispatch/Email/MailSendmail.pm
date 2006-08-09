@@ -10,7 +10,7 @@ use Mail::Sendmail ();
 
 use vars qw[ $VERSION ];
 
-$VERSION = sprintf "%d.%02d", q$Revision: 1.20 $ =~ /: (\d+)\.(\d+)/;
+$VERSION = '1.20';
 
 1;
 
@@ -26,6 +26,7 @@ sub send_email
 		 From    => $self->{from} || 'LogDispatch@foo.bar',
 	       );
 
+    local $?;
     unless ( Mail::Sendmail::sendmail(%mail) )
     {
 	warn "Error sending mail: $Mail::Sendmail::error" if $^W;
@@ -74,12 +75,12 @@ The name of the object (not the filename!).  Required.
 =item * min_level ($)
 
 The minimum logging level this object will accept.  See the
-Log::Dispatch documentation for more information.  Required.
+Log::Dispatch documentation on L<Log Levels|Log::Dispatch/"Log Levels"> for more information.  Required.
 
 =item * max_level ($)
 
 The maximum logging level this obejct will accept.  See the
-Log::Dispatch documentation for more information.  This is not
+Log::Dispatch documentation on L<Log Levels|Log::Dispatch/"Log Levels"> for more information.  This is not
 required.  By default the maximum is the highest possible level (which
 means functionally that the object has no maximum).
 
