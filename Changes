@@ -1,8 +1,17 @@
+2.13 Sep 25, 2006
+
+- No code changes, just added a SUPPORT section to the docs referring
+  folks to RT for bug reports & patches.
+
+
 2.12 Aug 9, 2006
 
 - The various email sending modules could overwrite if they were in
   buffered mode and they sent mail as a script exited. Reported by
   Dean Kopesky.
+
+- Doc tweaks. Make reference to "Log Levels" section in output module
+  docs more explicit. RT #11224.
 
 
 2.11 Jul 27, 2005

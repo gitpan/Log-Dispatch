@@ -9,7 +9,7 @@ use base qw( Log::Dispatch::Base );
 
 use Carp ();
 
-$VERSION = '2.12';
+$VERSION = '2.13';
 
 1;
 
@@ -388,18 +388,28 @@ Simpler than Log::Log4perl.
 A very different API for doing many of the same things that
 Log::Dispatch does.  Originally written by Raphael Manfredi.
 
+=head1 SUPPORT
+
+Please submit bugs and patches to the CPAN RT system at
+http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Log%3A%3ADispatch
+or via email at bug-log-dispatch@rt.cpan.org.
+
+Support questions can be sent to me at my email address, shown below.
+
+The code repository is at https://svn.urth.org/svn/Log-Dispatch/
+
+=head1 AUTHOR
+
+Dave Rolsky, <autarch@urth.org>
+
 =head1 COPYRIGHT
 
-Copyright (c) 1999-2003 David Rolsky.  All rights reserved.  This
+Copyright (c) 1999-2006 David Rolsky.  All rights reserved.  This
 program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
 
 The full text of the license can be found in the LICENSE file included
 with this module.
-
-=head1 AUTHOR
-
-Dave Rolsky, <autarch@urth.org>
 
 =head1 SEE ALSO
 

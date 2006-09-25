@@ -1,6 +1,6 @@
 ---
 name: Log-Dispatch
-version: 2.12
+version: 2.13
 author:
   - 'Dave Rolsky, <autarch@urth.org>'
 abstract: Dispatches messages to one or more outputs
@@ -15,7 +15,7 @@ build_requires:
 provides:
   Log::Dispatch:
     file: lib/Log/Dispatch.pm
-    version: 2.12
+    version: 2.13
   Log::Dispatch::ApacheLog:
     file: lib/Log/Dispatch/ApacheLog.pm
     version: 1.09
@@ -54,7 +54,7 @@ provides:
   Log::Dispatch::Syslog:
     file: lib/Log/Dispatch/Syslog.pm
     version: 1.18
-generated_by: Module::Build version 0.2805
+generated_by: Module::Build version 0.2801
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html
   version: 1.2
