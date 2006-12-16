@@ -15,13 +15,13 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 1e6ecd5079bd7fa7d6f29cf2d635d192597be8ce Build.PL
-SHA1 10938dbb56850805f555defebecd8329dff44fe5 Changes
+SHA1 3dc73d53b26920b786c025f22c588efbb866b44d Changes
 SHA1 9314b01360d8fa0f7086c869922610426a217b62 LICENSE
-SHA1 eddfc252d6e4b15a5d1c6f4d685eece1da641489 MANIFEST
-SHA1 352811316f26b7c18a36e549fae390bfabb36d1b META.yml
+SHA1 67124a5fd9c4457b33f97dba6d7b5b55340ea925 MANIFEST
+SHA1 080e666d5e45428c756b50c2ebed474ffa583221 META.yml
 SHA1 cd14ada78fb37a0d926edd86eddcdf7f939de582 Makefile.PL
 SHA1 2d097f5f3357916264bcc3b3879e33dff3548926 README
-SHA1 12042b99623118a34471fda35e07db6755e5e9af lib/Log/Dispatch.pm
+SHA1 b766cc3c670071bdb1d0232b2200a2553a432289 lib/Log/Dispatch.pm
 SHA1 7cb5b6a4dce2492432d713655d9c6daa453f227d lib/Log/Dispatch/ApacheLog.pm
 SHA1 e67cfdb24a6a4160274af4a34271c48c7a8d0695 lib/Log/Dispatch/Base.pm
 SHA1 16919d282e2234a87b179a4e6df55f77a736b3a1 lib/Log/Dispatch/Email.pm
@@ -32,11 +32,12 @@ SHA1 886fa555032e65fac875d0d1d156dbb52fa1c8a4 lib/Log/Dispatch/Email/MailSendmai
 SHA1 93bf313f2eaa463c327c5058b6896e4c53d5f0e8 lib/Log/Dispatch/File.pm
 SHA1 cf40a1630f6d1e71092b70f791892e1d8206f6e8 lib/Log/Dispatch/File/Locked.pm
 SHA1 3e0037021ab9a3b232d975c6fb462faf5f3c2362 lib/Log/Dispatch/Handle.pm
+SHA1 2ccac40903633a869f8c0d2de232adb73bd5b83c lib/Log/Dispatch/Null.pm
 SHA1 aed1e246a7f08e41ca6d2dcdc6456f4044cb63db lib/Log/Dispatch/Output.pm
 SHA1 5720f3e7bf8aff535f8c6d2bf2f048840e4e7d45 lib/Log/Dispatch/Screen.pm
 SHA1 63918abb9843c312175f51aa38295fadd6b1d094 lib/Log/Dispatch/Syslog.pm
-SHA1 ab5588a62b737267037b05b0704cdad128a16f7a t/00-compile.t
-SHA1 fe9b29f76b6cabbe1d046c0f13cbe5e8ecdac387 t/01-basic.t
+SHA1 fbe56e771d9f27b2d53f6693f450fb5c3c44229e t/00-compile.t
+SHA1 3f6b8b5e2f027c6bed9db518ec751393cb005672 t/01-basic.t
 SHA1 14c9924cca92127cad5935f7f10cbefc6878aef6 t/02-email-exit.t
 SHA1 77232b92127c5f3069f8b6d349aa5ef49ca1b9d4 t/99-pod.t
 SHA1 337840042fd1bb04b24f5fffbc23894ba9947d28 t/email-exit-helper.pl
@@ -44,7 +45,7 @@ SHA1 16667ed5d34e132bb361b463cd451e880390f334 t/sendmail
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.3 (GNU/Linux)
 
-iD8DBQFFX0Sy3Or3ZzQuifMRAggCAKDNR700fBIgLgpgOVCnb+ETPLS/owCfbuZX
-RW67d0iepWpd1/yByg6wRQs=
-=2Pzy
+iD8DBQFFhEIW3Or3ZzQuifMRApDCAKDgTVvIBre10g3sHP8wieL0nAXzSACfRjao
+STK5O1E4S3+kHy3WAH9c+YE=
+=xgao
 -----END PGP SIGNATURE-----

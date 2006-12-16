@@ -1,6 +1,6 @@
 ---
 name: Log-Dispatch
-version: 2.14
+version: 2.15
 author:
   - 'Dave Rolsky, <autarch@urth.org>'
 abstract: Dispatches messages to one or more outputs
@@ -15,7 +15,7 @@ build_requires:
 provides:
   Log::Dispatch:
     file: lib/Log/Dispatch.pm
-    version: 2.14
+    version: 2.15
   Log::Dispatch::ApacheLog:
     file: lib/Log/Dispatch/ApacheLog.pm
     version: 1.09
@@ -45,6 +45,8 @@ provides:
   Log::Dispatch::Handle:
     file: lib/Log/Dispatch/Handle.pm
     version: 1.16
+  Log::Dispatch::Null:
+    file: lib/Log/Dispatch/Null.pm
   Log::Dispatch::Output:
     file: lib/Log/Dispatch/Output.pm
     version: 1.26
