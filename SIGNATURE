@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.54.
+signed via the Module::Signature module, version 0.55.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -15,14 +15,14 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 7affa62f20225e8f5ad10cfed1563674de370dc5 Build.PL
-SHA1 afc0a510a86bc28f55d94da66f27aa092fc53d34 Changes
+SHA1 631e2ca76b114ed6ca44e59cc91cbabb025fd3a3 Changes
 SHA1 9314b01360d8fa0f7086c869922610426a217b62 LICENSE
 SHA1 67124a5fd9c4457b33f97dba6d7b5b55340ea925 MANIFEST
-SHA1 af76936aed57bef0b3292b28020f30ecd62017c0 META.yml
+SHA1 e90c038150ccb7b1c14abd3d07a325b79a2a7e1f META.yml
 SHA1 cd14ada78fb37a0d926edd86eddcdf7f939de582 Makefile.PL
 SHA1 2d097f5f3357916264bcc3b3879e33dff3548926 README
-SHA1 366da33ed969be0427b3fc688fe54f2fa29a4e82 lib/Log/Dispatch.pm
-SHA1 7cb5b6a4dce2492432d713655d9c6daa453f227d lib/Log/Dispatch/ApacheLog.pm
+SHA1 7643e8fc5f30b022cd1de434bccb7cee1980d97e lib/Log/Dispatch.pm
+SHA1 be0a4b33fe8b82b08144b589ab9b325b0a87290e lib/Log/Dispatch/ApacheLog.pm
 SHA1 e67cfdb24a6a4160274af4a34271c48c7a8d0695 lib/Log/Dispatch/Base.pm
 SHA1 16919d282e2234a87b179a4e6df55f77a736b3a1 lib/Log/Dispatch/Email.pm
 SHA1 35978a1fea72c919bd2196de8e36b5335c0a10ad lib/Log/Dispatch/Email/MIMELite.pm
@@ -43,9 +43,9 @@ SHA1 77232b92127c5f3069f8b6d349aa5ef49ca1b9d4 t/99-pod.t
 SHA1 337840042fd1bb04b24f5fffbc23894ba9947d28 t/email-exit-helper.pl
 SHA1 16667ed5d34e132bb361b463cd451e880390f334 t/sendmail
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.3 (GNU/Linux)
+Version: GnuPG v1.4.6 (GNU/Linux)
 
-iD8DBQFFiD4/3Or3ZzQuifMRAq8KAJ4mZmqzanoou9gUCzq2zppnBVy31gCfcf5Z
-/cjk4Ic/h3j41RWUgnDZWRI=
-=o5gh
+iD8DBQFGDoHp3Or3ZzQuifMRAjnHAJ0byHWjlGC2bzeUMrVLS0a8Z60nIgCg4eUG
+bU8SjssR/M6JFBAXPKXa/78=
+=p/KL
 -----END PGP SIGNATURE-----
