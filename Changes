@@ -1,3 +1,42 @@
+2.23 Sep 12, 2009
+
+- A new constructor API that simplifies creating your Log::Dispatch object:
+
+      Log::Dispatch->new( outputs => [ File   => { ... },
+                                       Screen => { ... },
+                                     ],
+                        );
+
+  Implemented by Jon Swartz.
+
+- Made name parameter optional. We now auto-generate a unique name if one is
+  not given. Implemented by Jon Swartz.
+
+- Added a newline parameter that causes a newline to be added to each message,
+  and updated the documentation regarding newlines. Implemented by Jon Swartz.
+
+- Removed repetitive boilerplate documentation from each output
+  class. Implemented by Jon Swartz.
+
+- The level_names and level_numbers used internally are now computed once and
+  shared between output objects. Implemented by Jon Swartz.
+
+- Updated repo url - now at http://hg.urth.org/hg/Log-Dispatch
+
+- Explicitly depend on Sys::Syslog 0.16.
+
+- Added warn as a synonym for warning. RT #44821. Requested by Dylan Martin.
+
+- Added an add_callback method to Log::Dispatch and
+  Log::Dispatch::Output. This lets you add a new formatting callback after an
+  object is created. Based on a patch from Ricardo Signes. RT #48283.
+
+- The Log::Dispatch docs mistakenly told you to provide a log() method when
+  creating a new output class. RT #40561.
+
+- Made all modules have the same version as Log::Dispatch itself.
+
+
 2.22 Nov 11, 2008
 
 - Fixed a bug where Log::Dispatch::Email would die when it tried to

@@ -7,6 +7,8 @@ use base qw( Log::Dispatch::File );
 
 use Fcntl qw(:DEFAULT :flock);
 
+our $VERSION = '2.23';
+
 
 sub _open_file
 {
@@ -31,27 +33,30 @@ __END__
 
 =head1 NAME
 
-Log::Dispatch::File::Locked - Extension to Log::Dispatch::File to facilitate locking
+Log::Dispatch::File::Locked - Subclass of Log::Dispatch::File to facilitate locking
 
 =head1 SYNOPSIS
 
   use Log::Dispatch::File::Locked;
 
-  my $file = Log::Dispatch::File::Locked->new( name      => 'locked_file1',
-                                               min_level => 'info',
-                                               filename  => 'Somefile.log',
-                                             );
+  my $log =
+      Log::Dispatch->new
+          ( outputs =>
+            [ 'File::Locked' =>
+                  { min_level => 'info',
+                    filename  => 'Somefile.log',
+                    mode      => '>>',
+                    newline   => 1,
+                  },
+            ],
+          );
 
   $file->log( level => 'emerg', message => "I've fallen and I can't get up\n" );
 
 =head1 DESCRIPTION
 
-This module acts exactly like Log::Dispatch::File except that it
+This module acts exactly like L<Log::Dispatch::File> except that it
 obtains an exclusive lock on the file before writing to it.
-
-=head1 METHODS
-
-All methods are inherited from Log::Dispatch::File.
 
 =head1 AUTHOR
 

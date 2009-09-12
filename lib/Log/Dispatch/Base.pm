@@ -3,7 +3,7 @@ package Log::Dispatch::Base;
 use strict;
 use warnings;
 
-our $VERSION = '1.09';
+our $VERSION = '2.23';
 
 
 sub _get_callbacks
@@ -36,6 +36,19 @@ sub _apply_callbacks
     return $msg;
 }
 
+sub add_callback
+{
+    my $self = shift;
+    my $value = shift;
+
+    Carp::carp("given value $value is not a valid callback")
+        unless ref $value eq 'CODE';
+
+    $self->{callbacks} ||= [];
+    push @{ $self->{callbacks} }, $value;
+
+    return;
+}
 
 1;
 

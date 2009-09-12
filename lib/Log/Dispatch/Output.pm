@@ -7,13 +7,20 @@ use Log::Dispatch;
 
 use base qw( Log::Dispatch::Base );
 
-use Params::Validate qw(validate SCALAR ARRAYREF CODEREF);
+use Params::Validate qw(validate SCALAR ARRAYREF CODEREF BOOLEAN);
 Params::Validate::validation_options( allow_extra => 1 );
 
 use Carp ();
 
-our $VERSION = '1.26';
+our $VERSION = '2.23';
 
+my $level_names = [ qw( debug info notice warning error critical alert emergency ) ];
+my $ln = 0;
+my $level_numbers = { ( map { $_ => $ln++ } @{ $level_names } ),
+                      warn  => 3,
+                      err   => 4,
+                      crit  => 5,
+                      emerg => 7 };
 
 sub new
 {
@@ -43,30 +50,24 @@ sub _basic_init
 {
     my $self = shift;
 
-    my %p = validate( @_, { name => { type => SCALAR },
-                            min_level => { type => SCALAR },
+    my %p = validate( @_, { name => { type => SCALAR, optional => 1 },
+                            min_level => { type => SCALAR, required => 1 },
                             max_level => { type => SCALAR,
                                            optional => 1 },
                             callbacks => { type => ARRAYREF | CODEREF,
                                            optional => 1 },
+                            newline => { type => BOOLEAN, optional => 1 },
                           } );
 
-    # Map the names to numbers so they can be compared.
-    $self->{level_names} = [ qw( debug info notice warning error critical alert emergency ) ];
+    $self->{level_names} = $level_names;
+    $self->{level_numbers} = $level_numbers;
 
-    my $x = 0;
-    $self->{level_numbers} = { ( map { $_ => $x++ } @{ $self->{level_names} } ),
-                               err   => 4,
-                               crit  => 5,
-                               emerg => 7 };
-
-    $self->{name} = $p{name};
+    $self->{name} = $p{name} || $self->_unique_name();
 
     $self->{min_level} = $self->_level_as_number($p{min_level});
     die "Invalid level specified for min_level" unless defined $self->{min_level};
 
-    # Either use the parameter supplies or just the highest possible
-    # level.
+    # Either use the parameter supplied or just the highest possible level.
     $self->{max_level} =
         ( exists $p{max_level} ?
           $self->_level_as_number($p{max_level}) :
@@ -77,6 +78,11 @@ sub _basic_init
 
     my @cb = $self->_get_callbacks(%p);
     $self->{callbacks} = \@cb if @cb;
+
+    if ( $p{newline} )
+    {
+        push @{$self->{callbacks}}, \&_add_newline_callback;
+    }
 }
 
 sub name
@@ -151,6 +157,20 @@ sub _level_as_name
     return $self->{level_names}[$level];
 }
 
+my $_unique_name_counter = 0;
+sub _unique_name
+{
+    my $self = shift;
+
+    return '_anon_' . $_unique_name_counter++;
+}
+
+sub _add_newline_callback
+{
+    my %p = @_;
+
+    return $p{message} . "\n";
+}
 
 1;
 
@@ -158,7 +178,7 @@ __END__
 
 =head1 NAME
 
-Log::Dispatch::Output - Base class for all Log::Dispatch::* object
+Log::Dispatch::Output - Base class for all Log::Dispatch::* objects
 
 =head1 SYNOPSIS
 
@@ -174,11 +194,13 @@ Log::Dispatch::Output - Base class for all Log::Dispatch::* object
 
       my %p = @_;
 
-      my $self = bless {}, $class
+      my $self = bless {}, $class;
 
       $self->_basic_init(%p);
 
       # Do more if you like
+
+      return $self;
   }
 
   sub log_message
@@ -189,54 +211,22 @@ Log::Dispatch::Output - Base class for all Log::Dispatch::* object
       # Do something with message in $p{message}
   }
 
+  1;
+
 =head1 DESCRIPTION
 
 This module is the base class from which all Log::Dispatch::* objects
 should be derived.
 
+=head1 CONSTRUCTOR
+
+The constructor, C<new>, must be overridden in a subclass. See L<Output
+Classes|Log::Dispatch/OUTPUT CLASSES> for a description of the common
+parameters accepted by this constructor.
+
 =head1 METHODS
 
 =over 4
-
-=item * new(%p)
-
-This must be overridden in a subclass.  Takes the following
-parameters:
-
-=over 4
-
-=item * name ($)
-
-The name of the object (not the filename!).  Required.
-
-=item * min_level ($)
-
-The minimum logging level this object will accept.  See the
-Log::Dispatch documentation on L<Log Levels|Log::Dispatch/"Log Levels"> for more information.  Required.
-
-=item * max_level ($)
-
-The maximum logging level this obejct will accept.  See the
-Log::Dispatch documentation on L<Log Levels|Log::Dispatch/"Log Levels"> for more information.  This is not
-required.  By default the maximum is the highest possible level (which
-means functionally that the object has no maximum).
-
-=item * callbacks( \& or [ \&, \&, ... ] )
-
-This parameter may be a single subroutine reference or an array
-reference of subroutine references.  These callbacks will be called in
-the order they are given and passed a hash containing the following keys:
-
- ( message => $log_message, level => $log_level )
-
-The callbacks are expected to modify the message and then return a
-single scalar containing that modified message.  These callbacks will
-be called when either the C<log> or C<log_to> methods are called and
-will only be applied to a given message once.  If they do not return
-the message then you will get no output.  Make sure to return the
-message!
-
-=back
 
 =item * _basic_init(%p)
 
@@ -282,6 +272,11 @@ This method will take a log level as a string (or a number) and return
 the number of that log level.  If not given an argument, it returns
 the calling object's log level instead.  If it cannot determine the
 level then it will issue a warning and return undef.
+
+=item * add_callback( $code )
+
+Adds a callback (like those given during construction). It is added to the end
+of the list of callbacks.
 
 =back
 

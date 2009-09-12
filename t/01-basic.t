@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 146;
+use Test::More tests => 165;
 
 use File::Spec;
 use File::Temp qw( tempdir );
@@ -20,10 +20,8 @@ BEGIN
 }
 
 my %TestConfig;
-if ( -d '.svn' )
-{
-    %TestConfig = ( email_address => 'autarch@urth.org',
-                  );
+if (my $email_address = $ENV{LOG_DISPATCH_TEST_EMAIL}) {
+    %TestConfig = ( email_address => $email_address );
 }
 
 use Log::Dispatch::File;
@@ -336,7 +334,7 @@ SKIP:
 # Comprehensive test of new methods that match level names
 {
     my %levels = map { $_ => $_ } ( qw( debug info notice warning error critical alert emergency ) );
-    @levels{ qw( err crit emerg ) } = ( qw( error critical emergency ) );
+    @levels{ qw( warn err crit emerg ) } = ( qw( warning error critical emergency ) );
 
     foreach my $allowed_level ( qw( debug info notice warning error critical alert emergency ) )
     {
@@ -349,7 +347,7 @@ SKIP:
                                                     max_level => $allowed_level,
                                                   ) );
 
-        foreach my $test_level ( qw( debug info notice warning err
+        foreach my $test_level ( qw( debug info notice warn warning err
                                      error crit critical alert emerg emergency ) )
         {
             $string = '';
@@ -604,6 +602,21 @@ SKIP:
     $dispatch->add( Log::Dispatch::String->new( name => 'handle',
                                                 string => \$string,
                                                 min_level => 'debug',
+                                                newline => 1,
+                                              ) );
+    $dispatch->debug('hello');
+    $dispatch->debug('goodbye');
+
+    is( $string, "hello\ngoodbye\n", 'added newlines');
+}
+
+{
+    my $string;
+
+    my $dispatch = Log::Dispatch->new;
+    $dispatch->add( Log::Dispatch::String->new( name => 'handle',
+                                                string => \$string,
+                                                min_level => 'debug',
                                               ) );
 
     eval
@@ -617,7 +630,7 @@ SKIP:
 
     ok( $e, 'died when calling log_and_die()' );
     like( $e, qr{this is my message}, 'error contains expected message' );
-    like( $e, qr{01-basic\.t line 611}, 'error croaked' );
+    like( $e, qr{01-basic\.t line 6\d\d}, 'error croaked' );
 
     is( $string, 'this is my message', 'message is logged' );
 
@@ -635,6 +648,82 @@ SKIP:
     like( $e, qr{01-basic\.t line 10006}, 'error croaked from perspective of caller' );
 
     is( $string, 'croak', 'message is logged' );
+}
+
+{
+    my $string;
+
+    my $dispatch = Log::Dispatch->new;
+    $dispatch->add( Log::Dispatch::String->new( name => 'handle',
+                                                string => \$string,
+                                                min_level => 'debug',
+                                              ) );
+
+    $dispatch->log(level => 'debug', message => 'foo');
+    is($string, 'foo', 'first test w/o callback');
+
+    $string = '';
+    $dispatch->add_callback(sub { return 'bar' });
+    $dispatch->log(level => 'debug', message => 'foo');
+    is($string, 'bar', 'second call, callback overrides message');
+}
+
+{
+    my $string;
+
+    my $dispatch = Log::Dispatch->new(
+        callbacks => sub { return 'baz' },
+    );
+    $dispatch->add( Log::Dispatch::String->new( name => 'handle',
+                                                string => \$string,
+                                                min_level => 'debug',
+                                              ) );
+
+    $dispatch->log(level => 'debug', message => 'foo');
+    is($string, 'baz', 'first test gets orig callback result');
+
+    $string = '';
+    $dispatch->add_callback(sub { return 'bar' });
+    $dispatch->log(level => 'debug', message => 'foo');
+    is($string, 'bar', 'second call, callback overrides message');
+}
+
+{
+    my $string;
+
+    my $dispatch = Log::Dispatch->new;
+    $dispatch->add( Log::Dispatch::String->new( name => 'handle',
+                                                string => \$string,
+                                                min_level => 'debug',
+                                              ) );
+
+    $dispatch->log(level => 'debug', message => 'foo');
+    is($string, 'foo', 'first test w/o callback');
+
+    $string = '';
+    $dispatch->add_callback(sub { return 'bar' });
+    $dispatch->log(level => 'debug', message => 'foo');
+    is($string, 'bar', 'second call, callback overrides message');
+}
+
+{
+    my $string;
+
+    my $dispatch = Log::Dispatch->new(
+        callbacks => sub { return 'baz' },
+    );
+    $dispatch->add( Log::Dispatch::String->new( name => 'handle',
+                                                string => \$string,
+                                                min_level => 'debug',
+                                              ) );
+
+    $dispatch->log(level => 'debug', message => 'foo');
+    is($string, 'baz', 'first test gets orig callback result');
+
+    $string = '';
+    $dispatch->add_callback(sub { return 'bar' });
+    $dispatch->log(level => 'debug', message => 'foo');
+    is($string, 'bar', 'second call, callback overrides message');
 }
 
 SKIP:
@@ -668,6 +757,14 @@ SKIP:
                [ [ 'INFO', 'Foo' ] ],
                'passed message to syslog' );
 }
+
+{
+    # Test defaults
+    my $dispatch = Log::Dispatch::Null->new( min_level => 'debug' );
+    like( $dispatch->name, qr/anon/, 'generated anon name' );
+    is( $dispatch->max_level, 'emergency', 'max_level is emergency' );
+}
+
 
 package Log::Dispatch::String;
 

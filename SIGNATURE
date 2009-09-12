@@ -14,37 +14,40 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 10af9b36bcdf140e347614c1c344c2190fd36d56 Build.PL
-SHA1 9a0927be4f1d588c6054df6a9f355407272a1b22 Changes
+SHA1 0b40e31e5aa7897061c3b40b25fb3419ce606a02 Build.PL
+SHA1 0bd14442dd6b6aefcabb45d51a4a414aae273fbb Changes
 SHA1 9314b01360d8fa0f7086c869922610426a217b62 LICENSE
-SHA1 cebabc71760d407dc6d72828d89b7fc22fe9f5cc MANIFEST
-SHA1 98b4a2f605b6b5a296ae7661ea30a2cc64e1cbf7 META.yml
-SHA1 caec11721b1b9c53869fcd183495a87cdd542f92 Makefile.PL
+SHA1 c8f51e4da8c93a00848f3f40787cf5a0deb36169 MANIFEST
+SHA1 460147b2aae6439da01ea7b3611d341fcb4df228 META.yml
+SHA1 e1ebdb49d4b2162947f652093fd06778f1b50689 Makefile.PL
 SHA1 2d097f5f3357916264bcc3b3879e33dff3548926 README
-SHA1 5eb30b320fa2538d32eb05a2ff826d151dbc2f76 lib/Log/Dispatch.pm
-SHA1 6161939df8614ace61a277ce0acfc4605226281c lib/Log/Dispatch/ApacheLog.pm
-SHA1 514812f938038fc53e5618f41dc9184d157ee16c lib/Log/Dispatch/Base.pm
-SHA1 ecf336a520baf36c26743c89a286d489f12a2142 lib/Log/Dispatch/Email.pm
-SHA1 8722d846696bd96bf8a61fb069d5fb75ba28ec79 lib/Log/Dispatch/Email/MIMELite.pm
-SHA1 87f9ba0f8124bd6ee1e50b5724ee48f02fdba48d lib/Log/Dispatch/Email/MailSend.pm
-SHA1 6e060e4adf792a23e83b30b3fe1b933789e5f17c lib/Log/Dispatch/Email/MailSender.pm
-SHA1 22c4f9ea910ef46178010b19f2cdc612815bf5b2 lib/Log/Dispatch/Email/MailSendmail.pm
-SHA1 12a4c0776d8ccf46dd7f8a36b4174b940cbc396c lib/Log/Dispatch/File.pm
-SHA1 017ab84efea71013a5f42e7d3efce2ccdb4bf8de lib/Log/Dispatch/File/Locked.pm
-SHA1 3515f9e3220446df6e1090cc05d39cf38958df1a lib/Log/Dispatch/Handle.pm
-SHA1 5bc1f6b663014885637c50c501ea8ea3a02e5c99 lib/Log/Dispatch/Null.pm
-SHA1 6283f6832592047ac56784d6ef19f205cd009d14 lib/Log/Dispatch/Output.pm
-SHA1 8a54a23c6ed926c904fcd9d742a19656b42bd159 lib/Log/Dispatch/Screen.pm
-SHA1 4ba112844ed70caccc8e861d606ca59bea8edad8 lib/Log/Dispatch/Syslog.pm
+SHA1 cf48444bc31f25234e041aa599cdbf9dcd7c5324 lib/Log/Dispatch.pm
+SHA1 ad3d716464176382f18f2d1d0dcda6c27cd90f5e lib/Log/Dispatch/ApacheLog.pm
+SHA1 8aba7cc0db417e9efc1414e5b9a0f6ad68cd4a73 lib/Log/Dispatch/Base.pm
+SHA1 d68febd66cc860787466054dc45c6b5135050535 lib/Log/Dispatch/Email.pm
+SHA1 0d9741db4636c18b02930f8e54aa0709633df7c3 lib/Log/Dispatch/Email/MIMELite.pm
+SHA1 88e65e4d53604c0b2b8105d55d40f2dfaaa7775d lib/Log/Dispatch/Email/MailSend.pm
+SHA1 13ef2a07874374e685b53da9718f81e9b2059e28 lib/Log/Dispatch/Email/MailSender.pm
+SHA1 ed0a0d416d8d7e9e4412f8810791a9ec508b40e4 lib/Log/Dispatch/Email/MailSendmail.pm
+SHA1 6dbbe97d8becf7aee11fe438af942672e2fa3158 lib/Log/Dispatch/File.pm
+SHA1 84e294dccf5d19502b4011a1755bb805d8dcde7d lib/Log/Dispatch/File/Locked.pm
+SHA1 a741fa5cb7a893188cf63d11f3d36aaab52a5141 lib/Log/Dispatch/Handle.pm
+SHA1 25cee520f1fe6f7664730b2f86db6c1d0487c8dc lib/Log/Dispatch/Null.pm
+SHA1 c1f1be0712e36ce0817d204f7924c9efa9c7b8ca lib/Log/Dispatch/Output.pm
+SHA1 7f042d9c4c4e5bb0eb6265e4d1426631fc09f7a8 lib/Log/Dispatch/Screen.pm
+SHA1 0d0e5a4c7a780c6e44252fcd2e324103c20d1f7f lib/Log/Dispatch/Syslog.pm
 SHA1 5fac1ae2b685cce1becdbd319ce7d94ccf20bfa2 t/00-compile.t
-SHA1 25f4895bebf5fa5b87f37d6bc3302da06fbacb6c t/01-basic.t
-SHA1 9ade2293d6e5ea77d94532132c89cd205ea85ed7 t/kwalitee.t
-SHA1 6d7bda2886cf3e075da91f24b7dae599a2582db8 t/pod-coverage.t
-SHA1 cec881e89926d320475f9de2b7fad02c2169f510 t/pod.t
+SHA1 b1a993910cb32d8ec5e6d811f0dd7d7a6a0b9fad t/01-basic.t
+SHA1 c50f7af902cd97edb685bf04980d2db2c0a28db1 t/03-short-syntax.t
+SHA1 0e555408316a444690f2bfd3c7e83b38d28283cf t/kwalitee.t
+SHA1 af91d084ac5e2f4fe9809099b4cb9babfe022f26 t/lib/Log/Dispatch/TestUtil.pm
+SHA1 2ec17d32d3174ace64e4503c47eb0fa709264698 t/pod-coverage.t
+SHA1 d757328f50247ecdfce1ba097418cf7b426dc12e t/pod.t
+SHA1 deb0387daf79837a912f33c35bb2498f18ba68b5 t/versions-match.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.9 (GNU/Linux)
 
-iEYEARECAAYFAkkZz28ACgkQ3Or3ZzQuifOItACeLqtBFCqBJ9OURDCI/7X9NHim
-mO4AnjsA5JQeXx4OU7kGDxqYPiD8ujNh
-=gq5u
+iEYEARECAAYFAkqr0EoACgkQIgMCsV8qvRKpcwCfTjYx932XnqW3nJiVgWvAqpXr
+OqwAoIneENqG3EukyIk5lqQ1S0Q4jkv5
+=TSTV
 -----END PGP SIGNATURE-----

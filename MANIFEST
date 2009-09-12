@@ -22,7 +22,10 @@ META.yml
 README
 t/00-compile.t
 t/01-basic.t
+t/03-short-syntax.t
 t/kwalitee.t
+t/lib/Log/Dispatch/TestUtil.pm
 t/pod-coverage.t
 t/pod.t
+t/versions-match.t
 SIGNATURE    Added here by Module::Build
