@@ -14,7 +14,7 @@ use base qw( Log::Dispatch::Email );
 
 use Mail::Sender ();
 
-our $VERSION = '2.23';
+our $VERSION = '2.24';
 
 sub new
 {
@@ -55,7 +55,7 @@ sub send_email
             or die "Error sending mail: $Mail::Sender::Error";
     };
 
-    warn $@ if $@ && warnings::enabled();
+    warn $@ if $@;
 }
 
 

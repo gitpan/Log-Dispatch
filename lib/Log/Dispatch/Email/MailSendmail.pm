@@ -9,7 +9,7 @@ use base qw( Log::Dispatch::Email );
 
 use Mail::Sendmail ();
 
-our $VERSION = '2.23';
+our $VERSION = '2.24';
 
 
 sub send_email
@@ -27,7 +27,7 @@ sub send_email
     local $?;
     unless ( Mail::Sendmail::sendmail(%mail) )
     {
-        warn "Error sending mail: $Mail::Sendmail::error" if warnings::enabled();
+        warn "Error sending mail: $Mail::Sendmail::error";
     }
 }
 

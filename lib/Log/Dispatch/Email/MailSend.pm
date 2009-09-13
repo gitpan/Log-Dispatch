@@ -9,7 +9,7 @@ use base qw( Log::Dispatch::Email );
 
 use Mail::Send;
 
-our $VERSION = '2.23';
+our $VERSION = '2.24';
 
 sub send_email
 {
@@ -37,7 +37,7 @@ sub send_email
             or die "Cannot close handle to mail program";
     };
 
-    warn $@ if $@ && $^W;
+    warn $@ if $@;
 }
 
 

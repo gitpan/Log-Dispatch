@@ -1,6 +1,6 @@
 ---
 name: Log-Dispatch
-version: 2.23
+version: 2.24
 author:
   - 'Dave Rolsky, <autarch@urth.org>'
 abstract: Dispatches messages to one or more outputs
@@ -18,49 +18,49 @@ configure_requires:
 provides:
   Log::Dispatch:
     file: lib/Log/Dispatch.pm
-    version: 2.23
+    version: 2.24
   Log::Dispatch::ApacheLog:
     file: lib/Log/Dispatch/ApacheLog.pm
-    version: 2.23
+    version: 2.24
   Log::Dispatch::Base:
     file: lib/Log/Dispatch/Base.pm
-    version: 2.23
+    version: 2.24
   Log::Dispatch::Email:
     file: lib/Log/Dispatch/Email.pm
-    version: 2.23
+    version: 2.24
   Log::Dispatch::Email::MIMELite:
     file: lib/Log/Dispatch/Email/MIMELite.pm
-    version: 2.23
+    version: 2.24
   Log::Dispatch::Email::MailSend:
     file: lib/Log/Dispatch/Email/MailSend.pm
-    version: 2.23
+    version: 2.24
   Log::Dispatch::Email::MailSender:
     file: lib/Log/Dispatch/Email/MailSender.pm
-    version: 2.23
+    version: 2.24
   Log::Dispatch::Email::MailSendmail:
     file: lib/Log/Dispatch/Email/MailSendmail.pm
-    version: 2.23
+    version: 2.24
   Log::Dispatch::File:
     file: lib/Log/Dispatch/File.pm
-    version: 2.23
+    version: 2.24
   Log::Dispatch::File::Locked:
     file: lib/Log/Dispatch/File/Locked.pm
-    version: 2.23
+    version: 2.24
   Log::Dispatch::Handle:
     file: lib/Log/Dispatch/Handle.pm
-    version: 2.23
+    version: 2.24
   Log::Dispatch::Null:
     file: lib/Log/Dispatch/Null.pm
-    version: 2.23
+    version: 2.24
   Log::Dispatch::Output:
     file: lib/Log/Dispatch/Output.pm
-    version: 2.23
+    version: 2.24
   Log::Dispatch::Screen:
     file: lib/Log/Dispatch/Screen.pm
-    version: 2.23
+    version: 2.24
   Log::Dispatch::Syslog:
     file: lib/Log/Dispatch/Syslog.pm
-    version: 2.23
+    version: 2.24
 generated_by: Module::Build version 0.35
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html

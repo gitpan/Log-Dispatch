@@ -9,7 +9,7 @@ use base qw( Log::Dispatch::Email );
 
 use MIME::Lite;
 
-our $VERSION = '2.23';
+our $VERSION = '2.24';
 
 
 sub send_email
@@ -28,7 +28,7 @@ sub send_email
     local $?;
     unless ( MIME::Lite->new(%mail)->send )
     {
-        warn "Error sending mail with MIME::Lite" if warnings::enabled();
+        warn "Error sending mail with MIME::Lite";
     }
 }
 
