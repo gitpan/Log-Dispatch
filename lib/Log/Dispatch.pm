@@ -9,7 +9,7 @@ use base qw( Log::Dispatch::Base );
 use Params::Validate qw(validate_with ARRAYREF CODEREF);
 use Carp ();
 
-our $VERSION = '2.24';
+our $VERSION = '2.25';
 our %LEVELS;
 
 
@@ -35,7 +35,7 @@ sub new
     my %p = validate_with
         ( params => \@_,
           spec => { outputs => { type => ARRAYREF, optional => 1 },
-                   callbacks => { type => (ARRAYREF | CODEREF), optional => 1 }},
+                    callbacks => { type => ARRAYREF | CODEREF, optional => 1 }},
           allow_extra => 1,  # for backward compatibility
         );
 
