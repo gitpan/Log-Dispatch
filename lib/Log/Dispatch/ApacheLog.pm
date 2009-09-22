@@ -10,7 +10,7 @@ use base qw( Log::Dispatch::Output );
 use Params::Validate qw(validate);
 Params::Validate::validation_options( allow_extra => 1 );
 
-our $VERSION = '2.25';
+our $VERSION = '2.26';
 
 
 BEGIN
@@ -72,7 +72,13 @@ Log::Dispatch::ApacheLog - Object for logging to Apache::Log objects
 =head1 SYNOPSIS
 
   use Log::Dispatch;
-  my $log = Log::Dispatch->new( outputs => [ ApacheLog => { apache => $r } ] );
+
+  my $log =
+      Log::Dispatch->new
+          ( outputs =>
+                [ [ 'ApacheLog', apache => $r ],
+                ],
+          );
 
   $log->emerg('Kaboom');
 

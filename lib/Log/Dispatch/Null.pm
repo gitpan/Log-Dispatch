@@ -7,7 +7,7 @@ use Log::Dispatch::Output;
 
 use base qw( Log::Dispatch::Output );
 
-our $VERSION = '2.25';
+our $VERSION = '2.26';
 
 
 sub new
@@ -37,7 +37,7 @@ Log::Dispatch::Null - Object that accepts messages and does nothing
 
   use Log::Dispatch;
 
-  my $null = Log::Dispatch->new( outputs => [ Null => {} ] );
+  my $null = Log::Dispatch->new( outputs => [ [ 'Null' ] ] );
 
   $null->emerg( "I've fallen and I can't get up" );
 

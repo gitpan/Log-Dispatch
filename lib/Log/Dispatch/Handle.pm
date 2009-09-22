@@ -10,7 +10,7 @@ use base qw( Log::Dispatch::Output );
 use Params::Validate qw(validate SCALAR ARRAYREF BOOLEAN);
 Params::Validate::validation_options( allow_extra => 1 );
 
-our $VERSION = '2.25';
+our $VERSION = '2.26';
 
 sub new
 {
@@ -52,11 +52,8 @@ Log::Dispatch::Handle - Object for logging to IO::Handle classes
   my $log =
       Log::Dispatch->new
           ( outputs =>
-            [ 'Handle' =>
-                  { min_level => 'emerg',
-                    handle    => $io_socket_object
-                  },
-            ],
+                [ [ 'Handle', min_level => 'emerg', handle => $io_socket_object ]
+                ]
           );
 
   $log->emerg( 'I am the Lizard King!' );

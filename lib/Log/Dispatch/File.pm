@@ -10,7 +10,7 @@ use base qw( Log::Dispatch::Output );
 use Params::Validate qw(validate SCALAR BOOLEAN);
 Params::Validate::validation_options( allow_extra => 1 );
 
-our $VERSION = '2.25';
+our $VERSION = '2.26';
 
 # Prevents death later on if IO::File can't export this constant.
 *O_APPEND = \&APPEND unless defined &O_APPEND;
@@ -163,13 +163,12 @@ Log::Dispatch::File - Object for logging to files
   my $log =
       Log::Dispatch->new
           ( outputs =>
-            [ 'File' =>
-                  { min_level => 'info',
+                [ [ 'File',
+                    min_level => 'info',
                     filename  => 'Somefile.log',
                     mode      => '>>',
-                    newline   => 1,
-                  },
-            ],
+                    newline   => 1 ]
+                ],
           );
 
   $log->emerg("I've fallen and I can't get up");

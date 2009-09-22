@@ -9,7 +9,7 @@ use base qw( Log::Dispatch::Email );
 
 use MIME::Lite;
 
-our $VERSION = '2.25';
+our $VERSION = '2.26';
 
 
 sub send_email
@@ -43,15 +43,16 @@ Log::Dispatch::Email::MIMELite - Subclass of Log::Dispatch::Email that uses the 
 
 =head1 SYNOPSIS
 
+  use Log::Dispatch;
+
   my $log =
       Log::Dispatch->new
           ( outputs =>
-            [ 'Email::MIMELite' =>
-                  { min_level => 'emerg',
-                    to        => [ qw( foo@example.com bar@example.org ) ],
-                    subject   => 'Big error!'.
-                  },
-            ],
+                [ [ 'Email::MIMELite',
+                    min_level => 'emerg',
+                    to => [ qw( foo@example.com bar@example.org ) ],
+                    subject   => 'Big error!' ]
+                ],
           );
 
   $log->emerg("Something bad is happening");
