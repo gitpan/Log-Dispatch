@@ -1,4 +1,7 @@
 package Log::Dispatch::Email;
+BEGIN {
+  $Log::Dispatch::Email::VERSION = '2.27';
+}
 
 use strict;
 use warnings;
@@ -10,31 +13,37 @@ use base qw( Log::Dispatch::Output );
 use Params::Validate qw(validate SCALAR ARRAYREF BOOLEAN);
 Params::Validate::validation_options( allow_extra => 1 );
 
-our $VERSION = '2.26';
-
 # need to untaint this value
 my ($program) = $0 =~ /(.+)/;
 
-sub new
-{
+sub new {
     my $proto = shift;
     my $class = ref $proto || $proto;
 
-    my %p = validate( @_, { subject  => { type => SCALAR,
-                                          default => "$program: log email" },
-                            to       => { type => SCALAR | ARRAYREF },
-                            from     => { type => SCALAR,
-                                          optional => 1 },
-                            buffered => { type => BOOLEAN,
-                                          default => 1 },
-                          } );
+    my %p = validate(
+        @_, {
+            subject => {
+                type    => SCALAR,
+                default => "$program: log email"
+            },
+            to   => { type => SCALAR | ARRAYREF },
+            from => {
+                type     => SCALAR,
+                optional => 1
+            },
+            buffered => {
+                type    => BOOLEAN,
+                default => 1
+            },
+        }
+    );
 
     my $self = bless {}, $class;
 
     $self->_basic_init(%p);
 
     $self->{subject} = $p{subject} || "$0: log email";
-    $self->{to} = ref $p{to} ? $p{to} : [$p{to}];
+    $self->{to} = ref $p{to} ? $p{to} : [ $p{to} ];
     $self->{from} = $p{from};
 
     # Default to buffered for obvious reasons!
@@ -45,35 +54,29 @@ sub new
     return $self;
 }
 
-sub log_message
-{
+sub log_message {
     my $self = shift;
-    my %p = @_;
+    my %p    = @_;
 
-    if ($self->{buffered})
-    {
+    if ( $self->{buffered} ) {
         push @{ $self->{buffer} }, $p{message};
     }
-    else
-    {
+    else {
         $self->send_email(@_);
     }
 }
 
-sub send_email
-{
-    my $self = shift;
+sub send_email {
+    my $self  = shift;
     my $class = ref $self;
 
     die "The send_email method must be overridden in the $class subclass";
 }
 
-sub flush
-{
+sub flush {
     my $self = shift;
 
-    if ($self->{buffered} && @{ $self->{buffer} })
-    {
+    if ( $self->{buffered} && @{ $self->{buffer} } ) {
         my $message = join '', @{ $self->{buffer} };
 
         $self->send_email( message => $message );
@@ -81,34 +84,38 @@ sub flush
     }
 }
 
-sub DESTROY
-{
+sub DESTROY {
     my $self = shift;
 
     $self->flush;
 }
 
-
 1;
 
-__END__
+# ABSTRACT: Base class for objects that send log messages via email
+
+
+
+=pod
 
 =head1 NAME
 
-Log::Dispatch::Email - Base class for objects that send log messages
-via email
+Log::Dispatch::Email - Base class for objects that send log messages via email
+
+=head1 VERSION
+
+version 2.27
 
 =head1 SYNOPSIS
 
-  package Log::Dispatch::Email::MySender
+  package Log::Dispatch::Email::MySender;
 
   use Log::Dispatch::Email;
   use base qw( Log::Dispatch::Email );
 
-  sub send_email
-  {
+  sub send_email {
       my $self = shift;
-      my %p = @_;
+      my %p    = @_;
 
       # Send email somehow.  Message is in $p{message}
   }
@@ -174,6 +181,18 @@ email.
 
 =head1 AUTHOR
 
-Dave Rolsky, <autarch@urth.org>
+Dave Rolsky <autarch@urth.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2010 by Dave Rolsky.
+
+This is free software, licensed under:
+
+  The Artistic License 2.0
 
 =cut
+
+
+__END__
+

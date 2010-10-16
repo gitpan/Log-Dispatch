@@ -1,4 +1,7 @@
 package Log::Dispatch::ApacheLog;
+BEGIN {
+  $Log::Dispatch::ApacheLog::VERSION = '2.27';
+}
 
 use strict;
 use warnings;
@@ -10,24 +13,16 @@ use base qw( Log::Dispatch::Output );
 use Params::Validate qw(validate);
 Params::Validate::validation_options( allow_extra => 1 );
 
-our $VERSION = '2.26';
-
-
-BEGIN
-{
-    if ( $ENV{MOD_PERL} && $ENV{MOD_PERL} =~ /2\./ )
-    {
+BEGIN {
+    if ( $ENV{MOD_PERL} && $ENV{MOD_PERL} =~ /2\./ ) {
         require Apache2::Log;
     }
-    else
-    {
+    else {
         require Apache::Log;
     }
 }
 
-
-sub new
-{
+sub new {
     my $proto = shift;
     my $class = ref $proto || $proto;
 
@@ -42,17 +37,17 @@ sub new
 }
 
 {
-    my %methods =
-        ( emergency => 'emerg',
-          critical  => 'crit',
-          warning   => 'warn',
-        );
-    sub log_message
-    {
-        my $self = shift;
-        my %p = @_;
+    my %methods = (
+        emergency => 'emerg',
+        critical  => 'crit',
+        warning   => 'warn',
+    );
 
-        my $level = $self->_level_as_name($p{level});
+    sub log_message {
+        my $self = shift;
+        my %p    = @_;
+
+        my $level = $self->_level_as_name( $p{level} );
 
         my $method = $methods{$level} || $level;
 
@@ -60,25 +55,31 @@ sub new
     }
 }
 
-
 1;
 
-__END__
+# ABSTRACT: Object for logging to Apache::Log objects
+
+
+
+=pod
 
 =head1 NAME
 
 Log::Dispatch::ApacheLog - Object for logging to Apache::Log objects
 
+=head1 VERSION
+
+version 2.27
+
 =head1 SYNOPSIS
 
   use Log::Dispatch;
 
-  my $log =
-      Log::Dispatch->new
-          ( outputs =>
-                [ [ 'ApacheLog', apache => $r ],
-                ],
-          );
+  my $log = Log::Dispatch->new(
+      outputs => [
+          [ 'ApacheLog', apache => $r ],
+      ],
+  );
 
   $log->emerg('Kaboom');
 
@@ -102,6 +103,18 @@ An object of either the L<Apache> or L<Apache::Server> classes. Required.
 
 =head1 AUTHOR
 
-Dave Rolsky, <autarch@urth.org>
+Dave Rolsky <autarch@urth.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2010 by Dave Rolsky.
+
+This is free software, licensed under:
+
+  The Artistic License 2.0
 
 =cut
+
+
+__END__
+

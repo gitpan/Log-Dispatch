@@ -1,4 +1,7 @@
 package Log::Dispatch::Email::MailSend;
+BEGIN {
+  $Log::Dispatch::Email::MailSend::VERSION = '2.27';
+}
 
 use strict;
 use warnings;
@@ -9,12 +12,9 @@ use base qw( Log::Dispatch::Email );
 
 use Mail::Send;
 
-our $VERSION = '2.26';
-
-sub send_email
-{
+sub send_email {
     my $self = shift;
-    my %p = @_;
+    my %p    = @_;
 
     my $msg = Mail::Send->new;
 
@@ -22,11 +22,10 @@ sub send_email
     $msg->subject( $self->{subject} );
 
     # Does this ever work for this module?
-    $msg->set('From', $self->{from}) if $self->{from};
+    $msg->set( 'From', $self->{from} ) if $self->{from};
 
     local $?;
-    eval
-    {
+    eval {
         my $fh = $msg->open
             or die "Cannot open handle to mail program";
 
@@ -40,28 +39,36 @@ sub send_email
     warn $@ if $@;
 }
 
-
 1;
 
-__END__
+# ABSTRACT: Subclass of Log::Dispatch::Email that uses the Mail::Send module
+
+
+
+=pod
 
 =head1 NAME
 
 Log::Dispatch::Email::MailSend - Subclass of Log::Dispatch::Email that uses the Mail::Send module
 
+=head1 VERSION
+
+version 2.27
+
 =head1 SYNOPSIS
 
   use Log::Dispatch;
 
-  my $log =
-      Log::Dispatch->new
-          ( outputs =>
-                [ [ 'Email::MailSend',
-                    min_level => 'emerg',
-                    to => [ qw( foo@example.com bar@example.org ) ],
-                    subject   => 'Big error!' ]
-                ],
-          );
+  my $log = Log::Dispatch->new(
+      outputs => [
+          [
+              'Email::MailSend',
+              min_level => 'emerg',
+              to        => [qw( foo@example.com bar@example.org )],
+              subject   => 'Big error!'
+          ]
+      ],
+  );
 
   $log->emerg("Something bad is happening");
 
@@ -83,6 +90,18 @@ For more details, see the L<Mail::Mailer> docs.
 
 =head1 AUTHOR
 
-Dave Rolsky, <autarch@urth.org>
+Dave Rolsky <autarch@urth.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2010 by Dave Rolsky.
+
+This is free software, licensed under:
+
+  The Artistic License 2.0
 
 =cut
+
+
+__END__
+

@@ -1,67 +1,23 @@
 ---
-name: Log-Dispatch
-version: 2.26
+abstract: 'Dispatches messages to one or more outputs'
 author:
-  - 'Dave Rolsky, <autarch@urth.org>'
-abstract: Dispatches messages to one or more outputs
-license: perl
-resources:
-  license: http://dev.perl.org/licenses/
+  - 'Dave Rolsky <autarch@urth.org>'
 build_requires:
   File::Temp: 0
   Test::More: 0
-requires:
-  Params::Validate: 0.15
-  Sys::Syslog: 0.16
 configure_requires:
-  Module::Build: 0.35
-provides:
-  Log::Dispatch:
-    file: lib/Log/Dispatch.pm
-    version: 2.26
-  Log::Dispatch::ApacheLog:
-    file: lib/Log/Dispatch/ApacheLog.pm
-    version: 2.26
-  Log::Dispatch::Base:
-    file: lib/Log/Dispatch/Base.pm
-    version: 2.26
-  Log::Dispatch::Email:
-    file: lib/Log/Dispatch/Email.pm
-    version: 2.26
-  Log::Dispatch::Email::MIMELite:
-    file: lib/Log/Dispatch/Email/MIMELite.pm
-    version: 2.26
-  Log::Dispatch::Email::MailSend:
-    file: lib/Log/Dispatch/Email/MailSend.pm
-    version: 2.26
-  Log::Dispatch::Email::MailSender:
-    file: lib/Log/Dispatch/Email/MailSender.pm
-    version: 2.26
-  Log::Dispatch::Email::MailSendmail:
-    file: lib/Log/Dispatch/Email/MailSendmail.pm
-    version: 2.26
-  Log::Dispatch::File:
-    file: lib/Log/Dispatch/File.pm
-    version: 2.26
-  Log::Dispatch::File::Locked:
-    file: lib/Log/Dispatch/File/Locked.pm
-    version: 2.26
-  Log::Dispatch::Handle:
-    file: lib/Log/Dispatch/Handle.pm
-    version: 2.26
-  Log::Dispatch::Null:
-    file: lib/Log/Dispatch/Null.pm
-    version: 2.26
-  Log::Dispatch::Output:
-    file: lib/Log/Dispatch/Output.pm
-    version: 2.26
-  Log::Dispatch::Screen:
-    file: lib/Log/Dispatch/Screen.pm
-    version: 2.26
-  Log::Dispatch::Syslog:
-    file: lib/Log/Dispatch/Syslog.pm
-    version: 2.26
-generated_by: Module::Build version 0.35
+  ExtUtils::MakeMaker: 6.31
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.102342, CPAN::Meta::Converter version 2.101670'
+license: artistic_2
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
+name: Log-Dispatch
+requires:
+  Params::Validate: 0.15
+  Sys::Syslog: 0.25
+resources:
+  bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Log-Dispatch
+  repository: http://hg.urth.org/hg/Log-Dispatch
+version: 2.27

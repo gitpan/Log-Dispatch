@@ -1,4 +1,7 @@
 package Log::Dispatch::Screen;
+BEGIN {
+  $Log::Dispatch::Screen::VERSION = '2.27';
+}
 
 use strict;
 use warnings;
@@ -10,17 +13,18 @@ use base qw( Log::Dispatch::Output );
 use Params::Validate qw(validate BOOLEAN);
 Params::Validate::validation_options( allow_extra => 1 );
 
-our $VERSION = '2.26';
-
-
-sub new
-{
+sub new {
     my $proto = shift;
     my $class = ref $proto || $proto;
 
-    my %p = validate( @_, { stderr => { type => BOOLEAN,
-                                        default => 1 },
-                          } );
+    my %p = validate(
+        @_, {
+            stderr => {
+                type    => BOOLEAN,
+                default => 1
+            },
+        }
+    );
 
     my $self = bless {}, $class;
 
@@ -30,43 +34,48 @@ sub new
     return $self;
 }
 
-sub log_message
-{
+sub log_message {
     my $self = shift;
-    my %p = @_;
+    my %p    = @_;
 
-    if ($self->{stderr})
-    {
+    if ( $self->{stderr} ) {
         print STDERR $p{message};
     }
-    else
-    {
+    else {
         print STDOUT $p{message};
     }
 }
 
-
 1;
 
-__END__
+# ABSTRACT: Object for logging to the screen
+
+
+
+=pod
 
 =head1 NAME
 
 Log::Dispatch::Screen - Object for logging to the screen
 
+=head1 VERSION
+
+version 2.27
+
 =head1 SYNOPSIS
 
   use Log::Dispatch;
 
-  my $log =
-      Log::Dispatch->new
-          ( outputs =>
-            [ [ 'Screen',
-                min_level => 'debug',
-                stderr    => 1,
-                newline   => 1 ]
-            ],
-          );
+  my $log = Log::Dispatch->new(
+      outputs => [
+          [
+              'Screen',
+              min_level => 'debug',
+              stderr    => 1,
+              newline   => 1
+          ]
+      ],
+  );
 
   $log->alert("I'm searching the city for sci-fi wasabi");
 
@@ -95,6 +104,18 @@ defaults to true.
 
 =head1 AUTHOR
 
-Dave Rolsky, <autarch@urth.org>
+Dave Rolsky <autarch@urth.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2010 by Dave Rolsky.
+
+This is free software, licensed under:
+
+  The Artistic License 2.0
 
 =cut
+
+
+__END__
+

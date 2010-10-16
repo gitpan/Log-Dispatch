@@ -5,8 +5,8 @@ use warnings;
 use base qw(Exporter);
 
 our @EXPORT_OK = qw(
-  cmp_deeply
-  dump_one_line
+    cmp_deeply
+    dump_one_line
 );
 
 sub cmp_deeply {
@@ -20,16 +20,14 @@ sub dump_one_line {
     my ($value) = @_;
 
     return Data::Dumper->new( [$value] )->Indent(0)->Sortkeys(1)->Quotekeys(0)
-      ->Terse(1)->Dump();
+        ->Terse(1)->Dump();
 }
 
 1;
 
+# ABSTRACT: Utilities used internally by Log::Dispatch for testing
+
 __END__
-
-=head1 NAME
-
-Log::Dispatch::TestUtil - Utilities used internally by Log::Dispatch for testing
 
 =head1 METHODS
 

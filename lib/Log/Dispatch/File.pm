@@ -1,4 +1,7 @@
 package Log::Dispatch::File;
+BEGIN {
+  $Log::Dispatch::File::VERSION = '2.27';
+}
 
 use strict;
 use warnings;
@@ -10,16 +13,12 @@ use base qw( Log::Dispatch::Output );
 use Params::Validate qw(validate SCALAR BOOLEAN);
 Params::Validate::validation_options( allow_extra => 1 );
 
-our $VERSION = '2.26';
-
 # Prevents death later on if IO::File can't export this constant.
 *O_APPEND = \&APPEND unless defined &O_APPEND;
 
-sub APPEND { 0 }
+sub APPEND {0}
 
-
-sub new
-{
+sub new {
     my $proto = shift;
     my $class = ref $proto || $proto;
 
@@ -33,42 +32,55 @@ sub new
     return $self;
 }
 
-sub _make_handle
-{
+sub _make_handle {
     my $self = shift;
 
-    my %p = validate( @_, { filename  => { type => SCALAR },
-                            mode      => { type => SCALAR,
-                                           default => '>' },
-                            binmode   => { type => SCALAR,
-                                           default => undef },
-                            autoflush => { type => BOOLEAN,
-                                           default => 1 },
-                            close_after_write => { type => BOOLEAN,
-                                                   default => 0 },
-                            permissions => { type => SCALAR,
-                                             optional => 1 },
-                          } );
+    my %p = validate(
+        @_, {
+            filename => { type => SCALAR },
+            mode     => {
+                type    => SCALAR,
+                default => '>'
+            },
+            binmode => {
+                type    => SCALAR,
+                default => undef
+            },
+            autoflush => {
+                type    => BOOLEAN,
+                default => 1
+            },
+            close_after_write => {
+                type    => BOOLEAN,
+                default => 0
+            },
+            permissions => {
+                type     => SCALAR,
+                optional => 1
+            },
+        }
+    );
 
     $self->{filename}    = $p{filename};
     $self->{close}       = $p{close_after_write};
     $self->{permissions} = $p{permissions};
     $self->{binmode}     = $p{binmode};
 
-    if ( $self->{close} )
-    {
+    if ( $self->{close} ) {
         $self->{mode} = '>>';
     }
-    elsif ( exists $p{mode} &&
-         defined $p{mode} &&
-         ( $p{mode} =~ /^(?:>>|append)$/ ||
-           ( $p{mode} =~ /^\d+$/ &&
-             $p{mode} == O_APPEND() ) ) )
-    {
+    elsif (
+           exists $p{mode}
+        && defined $p{mode}
+        && (
+            $p{mode} =~ /^(?:>>|append)$/
+            || (   $p{mode} =~ /^\d+$/
+                && $p{mode} == O_APPEND() )
+        )
+        ) {
         $self->{mode} = '>>';
     }
-    else
-    {
+    else {
         $self->{mode} = '>';
     }
 
@@ -78,48 +90,44 @@ sub _make_handle
 
 }
 
-sub _open_file
-{
+sub _open_file {
     my $self = shift;
 
     open my $fh, $self->{mode}, $self->{filename}
         or die "Cannot write to '$self->{filename}': $!";
 
-    if ( $self->{autoflush} )
-    {
-        my $oldfh = select $fh; $| = 1; select $oldfh;
+    if ( $self->{autoflush} ) {
+        my $oldfh = select $fh;
+        $| = 1;
+        select $oldfh;
     }
 
     if ( $self->{permissions}
-         && ! $self->{chmodded} )
-    {
+        && !$self->{chmodded} ) {
         my $current_mode = ( stat $self->{filename} )[2] & 07777;
-        if ( $current_mode ne $self->{permissions} )
-        {
+        if ( $current_mode ne $self->{permissions} ) {
             chmod $self->{permissions}, $self->{filename}
-                or die "Cannot chmod $self->{filename} to $self->{permissions}: $!";
+                or die
+                "Cannot chmod $self->{filename} to $self->{permissions}: $!";
         }
 
         $self->{chmodded} = 1;
     }
 
-    if ( $self->{binmode} )
-    {
+    if ( $self->{binmode} ) {
         binmode $fh, $self->{binmode};
     }
 
     $self->{fh} = $fh;
 }
 
-sub log_message
-{
+sub log_message {
     my $self = shift;
-    my %p = @_;
+    my %p    = @_;
 
     my $fh;
 
-    if ( $self->{close} )
-    {
+    if ( $self->{close} ) {
         $self->_open_file;
         $fh = $self->{fh};
         print $fh $p{message}
@@ -128,48 +136,53 @@ sub log_message
         close $fh
             or die "Cannot close '$self->{filename}': $!";
     }
-    else
-    {
+    else {
         $fh = $self->{fh};
         print $fh $p{message}
             or die "Cannot write to '$self->{filename}': $!";
     }
 }
 
-sub DESTROY
-{
+sub DESTROY {
     my $self = shift;
 
-    if ( $self->{fh} )
-    {
+    if ( $self->{fh} ) {
         my $fh = $self->{fh};
         close $fh;
     }
 }
 
-
 1;
 
-__END__
+# ABSTRACT: Object for logging to files
+
+
+
+=pod
 
 =head1 NAME
 
 Log::Dispatch::File - Object for logging to files
 
+=head1 VERSION
+
+version 2.27
+
 =head1 SYNOPSIS
 
   use Log::Dispatch;
 
-  my $log =
-      Log::Dispatch->new
-          ( outputs =>
-                [ [ 'File',
-                    min_level => 'info',
-                    filename  => 'Somefile.log',
-                    mode      => '>>',
-                    newline   => 1 ]
-                ],
-          );
+  my $log = Log::Dispatch->new(
+      outputs => [
+          [
+              'File',
+              min_level => 'info',
+              filename  => 'Somefile.log',
+              mode      => '>>',
+              newline   => 1
+          ]
+      ],
+  );
 
   $log->emerg("I've fallen and I can't get up");
 
@@ -237,6 +250,18 @@ which is probably not what you want.
 
 =head1 AUTHOR
 
-Dave Rolsky, <autarch@urth.org>
+Dave Rolsky <autarch@urth.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2010 by Dave Rolsky.
+
+This is free software, licensed under:
+
+  The Artistic License 2.0
 
 =cut
+
+
+__END__
+

@@ -1,4 +1,7 @@
 package Log::Dispatch::Email::MailSender;
+BEGIN {
+  $Log::Dispatch::Email::MailSender::VERSION = '2.27';
+}
 
 # By: Joseph Annino
 # (c) 2002
@@ -14,10 +17,7 @@ use base qw( Log::Dispatch::Email );
 
 use Mail::Sender ();
 
-our $VERSION = '2.26';
-
-sub new
-{
+sub new {
     my $proto = shift;
     my $class = ref $proto || $proto;
 
@@ -32,21 +32,21 @@ sub new
     return $self;
 }
 
-sub send_email
-{
+sub send_email {
     my $self = shift;
-    my %p = @_;
+    my %p    = @_;
 
     local $?;
-    eval
-    {
-        my $sender =
-            Mail::Sender->new( { from => $self->{from} || 'LogDispatch@foo.bar',
-                                 replyto => $self->{from} || 'LogDispatch@foo.bar',
-                                 to => ( join ',', @{ $self->{to} } ),
-                                 subject => $self->{subject},
-                                 smtp => $self->{smtp},
-                               } );
+    eval {
+        my $sender = Mail::Sender->new(
+            {
+                from    => $self->{from} || 'LogDispatch@foo.bar',
+                replyto => $self->{from} || 'LogDispatch@foo.bar',
+                to      => ( join ',', @{ $self->{to} } ),
+                subject => $self->{subject},
+                smtp    => $self->{smtp},
+            }
+        );
 
         die "Error sending mail ($sender): $Mail::Sender::Error"
             unless ref $sender;
@@ -58,28 +58,36 @@ sub send_email
     warn $@ if $@;
 }
 
-
 1;
 
-__END__
+# ABSTRACT: Subclass of Log::Dispatch::Email that uses the Mail::Sender module
+
+
+
+=pod
 
 =head1 NAME
 
 Log::Dispatch::Email::MailSender - Subclass of Log::Dispatch::Email that uses the Mail::Sender module
 
+=head1 VERSION
+
+version 2.27
+
 =head1 SYNOPSIS
 
   use Log::Dispatch;
 
-  my $log =
-      Log::Dispatch->new
-          ( outputs =>
-                [ [ 'Email::MailSender',
-                    min_level => 'emerg',
-                    to => [ qw( foo@example.com bar@example.org ) ],
-                    subject   => 'Big error!' ]
-                ],
-          );
+  my $log = Log::Dispatch->new(
+      outputs => [
+          [
+              'Email::MailSender',
+              min_level => 'emerg',
+              to        => [qw( foo@example.com bar@example.org )],
+              subject   => 'Big error!'
+          ]
+      ],
+  );
 
   $log->emerg("Something bad is happening");
 
@@ -88,10 +96,20 @@ Log::Dispatch::Email::MailSender - Subclass of Log::Dispatch::Email that uses th
 This is a subclass of L<Log::Dispatch::Email> that implements the send_email
 method using the L<Mail::Sender> module.
 
-=head1 AUTHORS
+=head1 AUTHOR
 
-Joseph Annino. <jannino@jannino.com>
+Dave Rolsky <autarch@urth.org>
 
-Dave Rolsky, <autarch@urth.org>
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2010 by Dave Rolsky.
+
+This is free software, licensed under:
+
+  The Artistic License 2.0
 
 =cut
+
+
+__END__
+

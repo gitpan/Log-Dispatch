@@ -1,4 +1,7 @@
 package Log::Dispatch::Null;
+BEGIN {
+  $Log::Dispatch::Null::VERSION = '2.27';
+}
 
 use strict;
 use warnings;
@@ -7,11 +10,7 @@ use Log::Dispatch::Output;
 
 use base qw( Log::Dispatch::Output );
 
-our $VERSION = '2.26';
-
-
-sub new
-{
+sub new {
     my $proto = shift;
     my $class = ref $proto || $proto;
 
@@ -24,20 +23,27 @@ sub new
 
 sub log_message { }
 
-
 1;
 
-__END__
+# ABSTRACT: Object that accepts messages and does nothing
+
+
+
+=pod
 
 =head1 NAME
 
 Log::Dispatch::Null - Object that accepts messages and does nothing
 
+=head1 VERSION
+
+version 2.27
+
 =head1 SYNOPSIS
 
   use Log::Dispatch;
 
-  my $null = Log::Dispatch->new( outputs => [ [ 'Null' ] ] );
+  my $null = Log::Dispatch->new( outputs => [ ['Null'] ] );
 
   $null->emerg( "I've fallen and I can't get up" );
 
@@ -48,7 +54,19 @@ object but it does nothing with them.
 
 =head1 AUTHOR
 
-Dave Rolsky, <autarch@urth.org>
+Dave Rolsky <autarch@urth.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2010 by Dave Rolsky.
+
+This is free software, licensed under:
+
+  The Artistic License 2.0
 
 =cut
+
+
+__END__
+
 

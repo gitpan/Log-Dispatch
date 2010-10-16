@@ -1,4 +1,7 @@
 package Log::Dispatch::Handle;
+BEGIN {
+  $Log::Dispatch::Handle::VERSION = '2.27';
+}
 
 use strict;
 use warnings;
@@ -10,10 +13,7 @@ use base qw( Log::Dispatch::Output );
 use Params::Validate qw(validate SCALAR ARRAYREF BOOLEAN);
 Params::Validate::validation_options( allow_extra => 1 );
 
-our $VERSION = '2.26';
-
-sub new
-{
+sub new {
     my $proto = shift;
     my $class = ref $proto || $proto;
 
@@ -27,36 +27,45 @@ sub new
     return $self;
 }
 
-sub log_message
-{
+sub log_message {
     my $self = shift;
-    my %p = @_;
+    my %p    = @_;
 
-    $self->{handle}->print($p{message})
+    $self->{handle}->print( $p{message} )
         or die "Cannot write to handle: $!";
 }
 
-
 1;
 
-__END__
+# ABSTRACT: Object for logging to IO::Handle classes
+
+
+
+=pod
 
 =head1 NAME
 
 Log::Dispatch::Handle - Object for logging to IO::Handle classes
 
+=head1 VERSION
+
+version 2.27
+
 =head1 SYNOPSIS
 
   use Log::Dispatch;
 
-  my $log =
-      Log::Dispatch->new
-          ( outputs =>
-                [ [ 'Handle', min_level => 'emerg', handle => $io_socket_object ]
-                ]
-          );
+  my $log = Log::Dispatch->new(
+      outputs => [
+          [
+              'Handle',
+              min_level => 'emerg',
+              handle    => $io_socket_object,
+          ],
+      ]
+  );
 
-  $log->emerg( 'I am the Lizard King!' );
+  $log->emerg('I am the Lizard King!');
 
 =head1 DESCRIPTION
 
@@ -79,6 +88,18 @@ The handle object.  This object must implement a C<print()> method.
 
 =head1 AUTHOR
 
-Dave Rolsky, <autarch@urth.org>
+Dave Rolsky <autarch@urth.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2010 by Dave Rolsky.
+
+This is free software, licensed under:
+
+  The Artistic License 2.0
 
 =cut
+
+
+__END__
+
