@@ -26,7 +26,7 @@ my %WriteMakefileArgs = (
     'Params::Validate' => '0.15',
     'Sys::Syslog' => '0.25'
   },
-  'VERSION' => '2.27',
+  'VERSION' => '2.28',
   'test' => {
     'TESTS' => 't/*.t'
   }

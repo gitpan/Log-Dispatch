@@ -1,6 +1,6 @@
 package Log::Dispatch::File;
 BEGIN {
-  $Log::Dispatch::File::VERSION = '2.27';
+  $Log::Dispatch::File::VERSION = '2.28';
 }
 
 use strict;
@@ -166,7 +166,7 @@ Log::Dispatch::File - Object for logging to files
 
 =head1 VERSION
 
-version 2.27
+version 2.28
 
 =head1 SYNOPSIS
 

@@ -14,30 +14,30 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 f6205ac6a5ae24747982ccb2fce95829df00974e Changes
+SHA1 9201986b5dd4cd0ef5a50f43b0d24f24d82ffc30 Changes
 SHA1 80e345bffac0ecb01b0293b9825111a2c33b090b INSTALL
 SHA1 23c628b4a8a36738405ccdacaeb912d2e727b4c0 LICENSE
 SHA1 3fa45b69edc5987a28e591f7aae66cd1a9648985 MANIFEST
-SHA1 35a98dc078b4cc8b549ab878c2a6b94af9d1fb4f META.json
-SHA1 82e71c644337e52a195050a4d87120bcaecb49ea META.yml
-SHA1 6ff4f9651854d818a337ca5b77d75a2261987810 Makefile.PL
-SHA1 a5b58f11a3f4edfef64a34afb7fb596053387f3a README
-SHA1 eb0ecdddd3f47305e17d7f7f87a538c82a1b603e dist.ini
-SHA1 31faf68bc027aca301bc1fc039b8d5c87ba9a87d lib/Log/Dispatch.pm
-SHA1 ed7c77bafb239bcff84b53e1186cf5d6524d71ea lib/Log/Dispatch/ApacheLog.pm
-SHA1 ded18e9355a6096b3711d1f596b3412a6ed695ea lib/Log/Dispatch/Base.pm
-SHA1 e7e783b0e4eb9e521964448dab746a9456c2a602 lib/Log/Dispatch/Email.pm
-SHA1 1a2ac3e60bf2e7b7a1e0e6cc0d4029e1ce022047 lib/Log/Dispatch/Email/MIMELite.pm
-SHA1 4e5629040f6322496fb33bb8e095fac46a5c7f4f lib/Log/Dispatch/Email/MailSend.pm
-SHA1 02f5cb7aec3813fbb98c0e5880b26f683baf8775 lib/Log/Dispatch/Email/MailSender.pm
-SHA1 33bd8f15c439605412635fadb87aa335616fee08 lib/Log/Dispatch/Email/MailSendmail.pm
-SHA1 c36f66254e6e8945c4de0bccdd2fddd9a3d5a2e8 lib/Log/Dispatch/File.pm
-SHA1 51715fa9fd18d9ccb29ec4dc018ab8a63bdf8e01 lib/Log/Dispatch/File/Locked.pm
-SHA1 52221ba8e7a76d5361f24f1cde4e6ce0029084c8 lib/Log/Dispatch/Handle.pm
-SHA1 25fa05fb6abbc5014c1bf9a373de9e0a058ad925 lib/Log/Dispatch/Null.pm
-SHA1 25341a40a75917a1d356947e5c23e121674420ab lib/Log/Dispatch/Output.pm
-SHA1 c0b3938b8b904edb277da462b2a45ee55eeb8e3b lib/Log/Dispatch/Screen.pm
-SHA1 9a475714c2ea846df8e9da37b8a1dbc0c5bed0a2 lib/Log/Dispatch/Syslog.pm
+SHA1 0cfcdd5a669dfd419499f75e5dfa3d34604885c6 META.json
+SHA1 1863e20823589fae68ae2b65ce899917a8c77e86 META.yml
+SHA1 44a4c995781e7bbf82e5a6313f399a819568c658 Makefile.PL
+SHA1 d0560d122b700e5b5449d1929111931257a07f16 README
+SHA1 e08594e72502bf96b26e248b17ad70af6d574891 dist.ini
+SHA1 62614a97b28714e3e9aa3faba239b29ce1ba8bbc lib/Log/Dispatch.pm
+SHA1 21b82bb8c961e23e9f1c05d7427e7e01a624f131 lib/Log/Dispatch/ApacheLog.pm
+SHA1 b57f112abe1a06e47d4a10459c028a4c74b621b3 lib/Log/Dispatch/Base.pm
+SHA1 5cbb1e98b8abef91a907c7b2bafc93587d987266 lib/Log/Dispatch/Email.pm
+SHA1 420c80d01176a09aef03783e0e7de41ec14432a7 lib/Log/Dispatch/Email/MIMELite.pm
+SHA1 5174253b21dfd23e2e438da35760fe09f9cde347 lib/Log/Dispatch/Email/MailSend.pm
+SHA1 36c3d5a3f9a55f2a8abc55ed3e8b9295653a343f lib/Log/Dispatch/Email/MailSender.pm
+SHA1 a030999adc2528505309343474a1afd937448f9b lib/Log/Dispatch/Email/MailSendmail.pm
+SHA1 7ce5cfa2edbe3bff033d92c4668a7fe1da12856c lib/Log/Dispatch/File.pm
+SHA1 2e7e7ae5cb60a8a54ce656f0f9b76c768e7e6006 lib/Log/Dispatch/File/Locked.pm
+SHA1 8038801568bb487f3013bb1271a35a2193870242 lib/Log/Dispatch/Handle.pm
+SHA1 d9b4ecd64fdf63b357de2655e5c3373ea5d00022 lib/Log/Dispatch/Null.pm
+SHA1 6dc982f5abe9a2ce722b7395099855398b0eeece lib/Log/Dispatch/Output.pm
+SHA1 93cd30126aa9a95a8919ff776bde417668bfb2a2 lib/Log/Dispatch/Screen.pm
+SHA1 1fa526de163d2d4c298e7c1117953c108cb6b26c lib/Log/Dispatch/Syslog.pm
 SHA1 df97eb936f0555d2adc1aae7d0518dc9c7353b06 t/00-compile.t
 SHA1 03f03f5135dbfac38ad6610e08b376dc510b5ee9 t/01-basic.t
 SHA1 587927a0b6aa079ceffecabbccde78cfb9a568dc t/02-email-exit.t
@@ -54,7 +54,7 @@ SHA1 16667ed5d34e132bb361b463cd451e880390f334 t/sendmail
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.10 (GNU/Linux)
 
-iEYEARECAAYFAky6EAcACgkQIgMCsV8qvRL8MACbB+/d3W7gdBNyxOevT7B1EupZ
-J78An3ezwUGPpM67KghpCTpmZXKT0U95
-=b7dz
+iEYEARECAAYFAk0GOo0ACgkQIgMCsV8qvRJYugCfdUyqmBoADydjMY8rfnPoWL6g
+bM8An0+ZsbVrXcnDYEqSYpg7VUkKrMzh
+=bDlV
 -----END PGP SIGNATURE-----

@@ -4,7 +4,7 @@
       "Dave Rolsky <autarch@urth.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.102342, CPAN::Meta::Converter version 2.101670",
+   "generated_by" : "Dist::Zilla version 4.102345, CPAN::Meta::Converter version 2.101670",
    "license" : [
       "artistic_2"
    ],
@@ -44,6 +44,6 @@
          "web" : "http://hg.urth.org/hg/Log-Dispatch"
       }
    },
-   "version" : "2.27"
+   "version" : "2.28"
 }
 

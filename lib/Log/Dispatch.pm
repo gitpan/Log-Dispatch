@@ -1,4 +1,7 @@
 package Log::Dispatch;
+BEGIN {
+  $Log::Dispatch::VERSION = '2.28';
+}
 
 use 5.006;
 
@@ -9,7 +12,6 @@ use base qw( Log::Dispatch::Base );
 use Params::Validate qw(validate_with ARRAYREF CODEREF);
 use Carp ();
 
-our $VERSION = '2.26';
 our %LEVELS;
 
 BEGIN {
@@ -245,7 +247,7 @@ Log::Dispatch - Dispatches messages to one or more outputs
 
 =head1 VERSION
 
-version 2.27
+version 2.28
 
 =head1 SYNOPSIS
 
