@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 165;
+use Test::More;
 
 use File::Spec;
 use File::Temp qw( tempdir );
@@ -691,7 +691,22 @@ SKIP:
     );
 
     ok(
+        !$dispatch->is_debug(),
+        'is_debug returns false'
+    );
+
+    ok(
+        $dispatch->is_warning(),
+        'is_warning returns true'
+    );
+
+    ok(
         $dispatch->would_log('crit'),
+        "will log 'crit'"
+    );
+
+    ok(
+        $dispatch->is_crit,
         "will log 'crit'"
     );
 }
@@ -935,6 +950,8 @@ SKIP:
     like( $dispatch->name, qr/anon/, 'generated anon name' );
     is( $dispatch->max_level, 'emergency', 'max_level is emergency' );
 }
+
+done_testing();
 
 package Log::Dispatch::String;
 

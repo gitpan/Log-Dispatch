@@ -1,6 +1,6 @@
 package Log::Dispatch;
 BEGIN {
-  $Log::Dispatch::VERSION = '2.28';
+  $Log::Dispatch::VERSION = '2.29';
 }
 
 use 5.006;
@@ -225,6 +225,19 @@ sub would_log {
     return 0;
 }
 
+sub is_debug     { $_[0]->would_log('debug') }
+sub is_info      { $_[0]->would_log('info') }
+sub is_notice    { $_[0]->would_log('notice') }
+sub is_warning   { $_[0]->would_log('warning') }
+sub is_warn      { $_[0]->would_log('warn') }
+sub is_error     { $_[0]->would_log('error') }
+sub is_err       { $_[0]->would_log('err') }
+sub is_critical  { $_[0]->would_log('critical') }
+sub is_crit      { $_[0]->would_log('crit') }
+sub is_alert     { $_[0]->would_log('alert') }
+sub is_emerg     { $_[0]->would_log('emerg') }
+sub is_emergency { $_[0]->would_log('emergency') }
+
 sub _require_dynamic {
     my ($class) = @_;
 
@@ -247,7 +260,7 @@ Log::Dispatch - Dispatches messages to one or more outputs
 
 =head1 VERSION
 
-version 2.28
+version 2.29
 
 =head1 SYNOPSIS
 
@@ -431,6 +444,12 @@ valid log level.  Can be called as either a class or object method.
 
 Given a log level, returns true or false to indicate whether or not
 anything would be logged for that log level.
+
+=item * is_C<$level>
+
+There are methods for every log level: C<is_debug()>, C<is_warning()>, etc.
+
+This returns true if the logger will log a message at the given level.
 
 =back
 
@@ -629,11 +648,11 @@ Dave Rolsky <autarch@urth.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2010 by Dave Rolsky.
+This software is Copyright (c) 2011 by Dave Rolsky.
 
 This is free software, licensed under:
 
-  The Artistic License 2.0
+  The Artistic License 2.0 (GPL Compatible)
 
 =cut
 

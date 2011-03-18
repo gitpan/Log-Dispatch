@@ -13,7 +13,7 @@ my %WriteMakefileArgs = (
   'AUTHOR' => 'Dave Rolsky <autarch@urth.org>',
   'BUILD_REQUIRES' => {
     'File::Temp' => '0',
-    'Test::More' => '0'
+    'Test::More' => '0.88'
   },
   'CONFIGURE_REQUIRES' => {
     'ExtUtils::MakeMaker' => '6.31'
@@ -26,7 +26,7 @@ my %WriteMakefileArgs = (
     'Params::Validate' => '0.15',
     'Sys::Syslog' => '0.25'
   },
-  'VERSION' => '2.28',
+  'VERSION' => '2.29',
   'test' => {
     'TESTS' => 't/*.t'
   }
