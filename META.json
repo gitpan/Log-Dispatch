@@ -21,6 +21,7 @@
       },
       "runtime" : {
          "requires" : {
+            "Class::Load" : "0",
             "Params::Validate" : "0.15"
          }
       },
@@ -43,6 +44,6 @@
          "web" : "http://git.urth.org/Log-Dispatch.git"
       }
    },
-   "version" : "2.30"
+   "version" : "2.31"
 }
 

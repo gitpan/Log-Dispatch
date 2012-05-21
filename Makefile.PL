@@ -23,9 +23,10 @@ my %WriteMakefileArgs = (
   "LICENSE" => "artistic_2",
   "NAME" => "Log::Dispatch",
   "PREREQ_PM" => {
+    "Class::Load" => 0,
     "Params::Validate" => "0.15"
   },
-  "VERSION" => "2.30",
+  "VERSION" => "2.31",
   "test" => {
     "TESTS" => "t/*.t"
   }
