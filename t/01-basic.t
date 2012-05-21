@@ -395,7 +395,7 @@ SKIP:
     );
 }
 
-# test level paramter to callbacks
+# test level parameter to callbacks
 {
     my $level = sub { my %p = @_; return uc $p{level}; };
 
@@ -463,6 +463,36 @@ SKIP:
             }
         }
     }
+}
+
+{
+    my $string;
+    my $dispatch = Log::Dispatch->new(
+        outputs => [
+            [
+                'String',
+                name      => 'string',
+                string    => \$string,
+                min_level => 'debug',
+            ],
+        ],
+    );
+
+    $dispatch->debug( 'foo', 'bar' );
+    is(
+        $string,
+        'foo bar',
+        'passing multiple elements to ->debug stringifies them like an array'
+    );
+
+    $string = q{};
+    $dispatch->debug( sub { 'foo'} );
+    is(
+        $string,
+        'foo',
+        'passing single sub ref to ->debug calls the sub ref'
+    );
+
 }
 
 # Log::Dispatch->level_is_valid method
@@ -619,7 +649,7 @@ SKIP:
 
     my @chmod;
     no warnings 'once';
-    local *CORE::chmod = sub { @chmod = @_; warn @chmod };
+    local *CORE::GLOBAL::chmod = sub { @chmod = @_; warn @chmod };
 
     $dispatch->add(
         Log::Dispatch::File->new(
@@ -652,7 +682,7 @@ SKIP:
             name      => 'utf8',
             min_level => 'info',
             filename  => $utf8_log,
-            binmode   => ':utf8',
+            binmode   => ':encoding(UTF-8)',
         )
     );
 
@@ -799,7 +829,7 @@ SKIP:
 
     ok( $e, 'died when calling log_and_die()' );
     like( $e, qr{this is my message},     'error contains expected message' );
-    like( $e, qr{01-basic\.t line 7\d\d}, 'error croaked' );
+    like( $e, qr{01-basic\.t line 8\d\d}, 'error croaked' );
 
     is( $string, 'this is my message', 'message is logged' );
 
@@ -949,6 +979,54 @@ SKIP:
     my $dispatch = Log::Dispatch::Null->new( min_level => 'debug' );
     like( $dispatch->name, qr/anon/, 'generated anon name' );
     is( $dispatch->max_level, 'emergency', 'max_level is emergency' );
+}
+
+{
+    my $level;
+    my $record_level = sub {
+        my %p = @_;
+        $level = $p{level};
+        return %p;
+    };
+
+    my $dispatch = Log::Dispatch->new(
+        callbacks => $record_level,
+        outputs   => [
+            [
+                'Null',
+                name      => 'null',
+                min_level => 'debug',
+            ],
+        ],
+    );
+
+    $dispatch->warn('foo');
+    is(
+        $level,
+        'warning',
+        'level for call to ->warn is warning'
+    );
+
+    $dispatch->err('foo');
+    is(
+        $level,
+        'error',
+        'level for call to ->err is error'
+    );
+
+    $dispatch->crit('foo');
+    is(
+        $level,
+        'critical',
+        'level for call to ->crit is critical'
+    );
+
+    $dispatch->emerg('foo');
+    is(
+        $level,
+        'emergency',
+        'level for call to ->emerg is emergency'
+    );
 }
 
 done_testing();

@@ -6,9 +6,9 @@ build_requires:
   File::Temp: 0
   Test::More: 0.88
 configure_requires:
-  ExtUtils::MakeMaker: 6.31
+  ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.200004, CPAN::Meta::Converter version 2.110240'
+generated_by: 'Dist::Zilla version 4.300015, CPAN::Meta::Converter version 2.120900'
 license: artistic_2
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -16,8 +16,7 @@ meta-spec:
 name: Log-Dispatch
 requires:
   Params::Validate: 0.15
-  Sys::Syslog: 0.25
 resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Log-Dispatch
-  repository: http://hg.urth.org/hg/Log-Dispatch
-version: 2.29
+  repository: git://git.urth.org/Log-Dispatch.git
+version: 2.30

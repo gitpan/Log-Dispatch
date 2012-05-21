@@ -4,31 +4,30 @@ use warnings;
 
 
 
-use ExtUtils::MakeMaker 6.31;
+use ExtUtils::MakeMaker 6.30;
 
 
 
 my %WriteMakefileArgs = (
-  'ABSTRACT' => 'Dispatches messages to one or more outputs',
-  'AUTHOR' => 'Dave Rolsky <autarch@urth.org>',
-  'BUILD_REQUIRES' => {
-    'File::Temp' => '0',
-    'Test::More' => '0.88'
+  "ABSTRACT" => "Dispatches messages to one or more outputs",
+  "AUTHOR" => "Dave Rolsky <autarch\@urth.org>",
+  "BUILD_REQUIRES" => {
+    "File::Temp" => 0,
+    "Test::More" => "0.88"
   },
-  'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.31'
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
   },
-  'DISTNAME' => 'Log-Dispatch',
-  'EXE_FILES' => [],
-  'LICENSE' => 'artistic_2',
-  'NAME' => 'Log::Dispatch',
-  'PREREQ_PM' => {
-    'Params::Validate' => '0.15',
-    'Sys::Syslog' => '0.25'
+  "DISTNAME" => "Log-Dispatch",
+  "EXE_FILES" => [],
+  "LICENSE" => "artistic_2",
+  "NAME" => "Log::Dispatch",
+  "PREREQ_PM" => {
+    "Params::Validate" => "0.15"
   },
-  'VERSION' => '2.29',
-  'test' => {
-    'TESTS' => 't/*.t'
+  "VERSION" => "2.30",
+  "test" => {
+    "TESTS" => "t/*.t"
   }
 );
 

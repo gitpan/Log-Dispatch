@@ -1,6 +1,6 @@
 package Log::Dispatch::File::Locked;
-BEGIN {
-  $Log::Dispatch::File::Locked::VERSION = '2.29';
+{
+  $Log::Dispatch::File::Locked::VERSION = '2.30';
 }
 
 use strict;
@@ -39,7 +39,7 @@ Log::Dispatch::File::Locked - Subclass of Log::Dispatch::File to facilitate lock
 
 =head1 VERSION
 
-version 2.29
+version 2.30
 
 =head1 SYNOPSIS
 

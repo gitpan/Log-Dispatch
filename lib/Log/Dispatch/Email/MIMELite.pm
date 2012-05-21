@@ -1,6 +1,6 @@
 package Log::Dispatch::Email::MIMELite;
-BEGIN {
-  $Log::Dispatch::Email::MIMELite::VERSION = '2.29';
+{
+  $Log::Dispatch::Email::MIMELite::VERSION = '2.30';
 }
 
 use strict;
@@ -45,7 +45,7 @@ Log::Dispatch::Email::MIMELite - Subclass of Log::Dispatch::Email that uses the 
 
 =head1 VERSION
 
-version 2.29
+version 2.30
 
 =head1 SYNOPSIS
 

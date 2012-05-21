@@ -6,7 +6,6 @@ META.json
 META.yml
 Makefile.PL
 README
-SIGNATURE
 dist.ini
 lib/Log/Dispatch.pm
 lib/Log/Dispatch/ApacheLog.pm
@@ -29,9 +28,12 @@ t/02-email-exit.t
 t/03-short-syntax.t
 t/email-exit-helper.pl
 t/lib/Log/Dispatch/TestUtil.pm
+t/release-cpan-changes.t
 t/release-eol.t
 t/release-no-tabs.t
 t/release-pod-coverage.t
+t/release-pod-linkcheck.t
+t/release-pod-no404s.t
 t/release-pod-spell.t
 t/release-pod-syntax.t
 t/sendmail
