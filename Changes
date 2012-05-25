@@ -1,3 +1,12 @@
+2.32     2012-05-24
+
+- Fix a test failure - test failed if you had 0.16 <= Sys::Syslog < 0.25
+  installed.
+
+- Added a kludgey test failure fix for failure on Cygwin. Patch by Christian
+  Carey. RT #77364.
+
+
 2.31     2012-05-21
 
 - Added missing prereq - Class::Load.
