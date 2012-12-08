@@ -1,6 +1,6 @@
 package Log::Dispatch::Base;
 {
-  $Log::Dispatch::Base::VERSION = '2.32';
+  $Log::Dispatch::Base::VERSION = '2.33';
 }
 
 use strict;
@@ -50,7 +50,7 @@ sub add_callback {
 
 # ABSTRACT: Code shared by dispatch and output objects.
 
-
+__END__
 
 =pod
 
@@ -60,7 +60,7 @@ Log::Dispatch::Base - Code shared by dispatch and output objects.
 
 =head1 VERSION
 
-version 2.32
+version 2.33
 
 =head1 SYNOPSIS
 
@@ -88,7 +88,3 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-
-
-__END__
-

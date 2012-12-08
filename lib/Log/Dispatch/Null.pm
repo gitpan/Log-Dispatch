@@ -1,6 +1,6 @@
 package Log::Dispatch::Null;
 {
-  $Log::Dispatch::Null::VERSION = '2.32';
+  $Log::Dispatch::Null::VERSION = '2.33';
 }
 
 use strict;
@@ -27,7 +27,7 @@ sub log_message { }
 
 # ABSTRACT: Object that accepts messages and does nothing
 
-
+__END__
 
 =pod
 
@@ -37,7 +37,7 @@ Log::Dispatch::Null - Object that accepts messages and does nothing
 
 =head1 VERSION
 
-version 2.32
+version 2.33
 
 =head1 SYNOPSIS
 
@@ -65,8 +65,3 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-
-
-__END__
-
-

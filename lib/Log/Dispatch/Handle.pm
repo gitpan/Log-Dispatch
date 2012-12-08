@@ -1,6 +1,6 @@
 package Log::Dispatch::Handle;
 {
-  $Log::Dispatch::Handle::VERSION = '2.32';
+  $Log::Dispatch::Handle::VERSION = '2.33';
 }
 
 use strict;
@@ -39,7 +39,7 @@ sub log_message {
 
 # ABSTRACT: Object for logging to IO::Handle classes
 
-
+__END__
 
 =pod
 
@@ -49,7 +49,7 @@ Log::Dispatch::Handle - Object for logging to IO::Handle classes
 
 =head1 VERSION
 
-version 2.32
+version 2.33
 
 =head1 SYNOPSIS
 
@@ -99,7 +99,3 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-
-
-__END__
-

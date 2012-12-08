@@ -1,6 +1,6 @@
 package Log::Dispatch::Email;
 {
-  $Log::Dispatch::Email::VERSION = '2.32';
+  $Log::Dispatch::Email::VERSION = '2.33';
 }
 
 use strict;
@@ -94,7 +94,7 @@ sub DESTROY {
 
 # ABSTRACT: Base class for objects that send log messages via email
 
-
+__END__
 
 =pod
 
@@ -104,7 +104,7 @@ Log::Dispatch::Email - Base class for objects that send log messages via email
 
 =head1 VERSION
 
-version 2.32
+version 2.33
 
 =head1 SYNOPSIS
 
@@ -192,7 +192,3 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-
-
-__END__
-

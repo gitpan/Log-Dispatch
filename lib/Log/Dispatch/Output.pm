@@ -1,6 +1,6 @@
 package Log::Dispatch::Output;
 {
-  $Log::Dispatch::Output::VERSION = '2.32';
+  $Log::Dispatch::Output::VERSION = '2.33';
 }
 
 use strict;
@@ -178,7 +178,7 @@ sub _add_newline_callback {
 
 # ABSTRACT: Base class for all Log::Dispatch::* objects
 
-
+__END__
 
 =pod
 
@@ -188,7 +188,7 @@ Log::Dispatch::Output - Base class for all Log::Dispatch::* objects
 
 =head1 VERSION
 
-version 2.32
+version 2.33
 
 =head1 SYNOPSIS
 
@@ -313,7 +313,3 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-
-
-__END__
-

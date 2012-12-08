@@ -1,6 +1,6 @@
 package Log::Dispatch::ApacheLog;
 {
-  $Log::Dispatch::ApacheLog::VERSION = '2.32';
+  $Log::Dispatch::ApacheLog::VERSION = '2.33';
 }
 
 use strict;
@@ -59,7 +59,7 @@ sub new {
 
 # ABSTRACT: Object for logging to Apache::Log objects
 
-
+__END__
 
 =pod
 
@@ -69,7 +69,7 @@ Log::Dispatch::ApacheLog - Object for logging to Apache::Log objects
 
 =head1 VERSION
 
-version 2.32
+version 2.33
 
 =head1 SYNOPSIS
 
@@ -114,7 +114,3 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-
-
-__END__
-

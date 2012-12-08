@@ -1,6 +1,6 @@
 package Log::Dispatch::Syslog;
 {
-  $Log::Dispatch::Syslog::VERSION = '2.32';
+  $Log::Dispatch::Syslog::VERSION = '2.33';
 }
 
 use strict;
@@ -98,7 +98,7 @@ sub log_message {
 
 # ABSTRACT: Object for logging to system log.
 
-
+__END__
 
 =pod
 
@@ -108,7 +108,7 @@ Log::Dispatch::Syslog - Object for logging to system log.
 
 =head1 VERSION
 
-version 2.32
+version 2.33
 
 =head1 SYNOPSIS
 
@@ -187,7 +187,3 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-
-
-__END__
-

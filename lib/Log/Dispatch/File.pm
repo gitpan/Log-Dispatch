@@ -1,6 +1,6 @@
 package Log::Dispatch::File;
 {
-  $Log::Dispatch::File::VERSION = '2.32';
+  $Log::Dispatch::File::VERSION = '2.33';
 }
 
 use strict;
@@ -13,10 +13,12 @@ use base qw( Log::Dispatch::Output );
 use Params::Validate qw(validate SCALAR BOOLEAN);
 Params::Validate::validation_options( allow_extra => 1 );
 
+use Scalar::Util qw( openhandle );
+
 # Prevents death later on if IO::File can't export this constant.
 *O_APPEND = \&APPEND unless defined &O_APPEND;
 
-sub APPEND {0}
+sub APPEND { 0 }
 
 sub new {
     my $proto = shift;
@@ -36,7 +38,8 @@ sub _make_handle {
     my $self = shift;
 
     my %p = validate(
-        @_, {
+        @_,
+        {
             filename => { type => SCALAR },
             mode     => {
                 type    => SCALAR,
@@ -65,6 +68,7 @@ sub _make_handle {
     $self->{close}       = $p{close_after_write};
     $self->{permissions} = $p{permissions};
     $self->{binmode}     = $p{binmode};
+    $self->{syswrite}    = $p{syswrite};
 
     if ( $self->{close} ) {
         $self->{mode} = '>>';
@@ -125,21 +129,24 @@ sub log_message {
     my $self = shift;
     my %p    = @_;
 
-    my $fh;
-
     if ( $self->{close} ) {
         $self->_open_file;
-        $fh = $self->{fh};
-        print $fh $p{message}
-            or die "Cannot write to '$self->{filename}': $!";
+    }
 
-        close $fh
-            or die "Cannot close '$self->{filename}': $!";
+    my $fh = $self->{fh};
+
+    if ( $self->{syswrite} ) {
+        defined syswrite( $fh, $p{message} )
+            or die "Cannot write to '$self->{filename}': $!";
     }
     else {
-        $fh = $self->{fh};
         print $fh $p{message}
             or die "Cannot write to '$self->{filename}': $!";
+    }
+
+    if ( $self->{close} ) {
+        close $fh
+            or die "Cannot close '$self->{filename}': $!";
     }
 }
 
@@ -148,7 +155,7 @@ sub DESTROY {
 
     if ( $self->{fh} ) {
         my $fh = $self->{fh};
-        close $fh;
+        close $fh if openhandle($fh);
     }
 }
 
@@ -156,7 +163,7 @@ sub DESTROY {
 
 # ABSTRACT: Object for logging to files
 
-
+__END__
 
 =pod
 
@@ -166,7 +173,7 @@ Log::Dispatch::File - Object for logging to files
 
 =head1 VERSION
 
-version 2.32
+version 2.33
 
 =head1 SYNOPSIS
 
@@ -220,12 +227,18 @@ A layer name to be passed to binmode, like ":encoding(UTF-8)" or ":raw".
 Whether or not the file should be closed after each write.  This
 defaults to false.
 
-If this is true, then the mode will aways be append, so that the file
-is not re-written for each new message.
+If this is true, then the mode will always be append, so that the file is not
+re-written for each new message.
 
 =item * autoflush ($)
 
 Whether or not the file should be autoflushed.  This defaults to true.
+
+=item * syswrite ($)
+
+Whether or not to perform the write using L<perlfunc/syswrite>(),
+as opposed to L<perlfunc/print>().  This defaults to false.
+The usual caveats and warnings as documented in L<perlfunc/syswrite> apply.
 
 =item * permissions ($)
 
@@ -261,7 +274,3 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-
-
-__END__
-

@@ -1,6 +1,6 @@
 package Log::Dispatch::Email::MailSender;
 {
-  $Log::Dispatch::Email::MailSender::VERSION = '2.32';
+  $Log::Dispatch::Email::MailSender::VERSION = '2.33';
 }
 
 # By: Joseph Annino
@@ -62,7 +62,7 @@ sub send_email {
 
 # ABSTRACT: Subclass of Log::Dispatch::Email that uses the Mail::Sender module
 
-
+__END__
 
 =pod
 
@@ -72,7 +72,7 @@ Log::Dispatch::Email::MailSender - Subclass of Log::Dispatch::Email that uses th
 
 =head1 VERSION
 
-version 2.32
+version 2.33
 
 =head1 SYNOPSIS
 
@@ -109,7 +109,3 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-
-
-__END__
-

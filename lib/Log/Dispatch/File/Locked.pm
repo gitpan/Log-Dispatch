@@ -1,6 +1,6 @@
 package Log::Dispatch::File::Locked;
 {
-  $Log::Dispatch::File::Locked::VERSION = '2.32';
+  $Log::Dispatch::File::Locked::VERSION = '2.33';
 }
 
 use strict;
@@ -29,7 +29,7 @@ sub _open_file {
 
 # ABSTRACT: Subclass of Log::Dispatch::File to facilitate locking
 
-
+__END__
 
 =pod
 
@@ -39,7 +39,7 @@ Log::Dispatch::File::Locked - Subclass of Log::Dispatch::File to facilitate lock
 
 =head1 VERSION
 
-version 2.32
+version 2.33
 
 =head1 SYNOPSIS
 
@@ -77,8 +77,3 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-
-
-__END__
-
-

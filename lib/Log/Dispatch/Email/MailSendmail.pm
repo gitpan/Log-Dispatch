@@ -1,6 +1,6 @@
 package Log::Dispatch::Email::MailSendmail;
 {
-  $Log::Dispatch::Email::MailSendmail::VERSION = '2.32';
+  $Log::Dispatch::Email::MailSendmail::VERSION = '2.33';
 }
 
 use strict;
@@ -35,7 +35,7 @@ sub send_email {
 
 # ABSTRACT: Subclass of Log::Dispatch::Email that uses the Mail::Sendmail module
 
-
+__END__
 
 =pod
 
@@ -45,7 +45,7 @@ Log::Dispatch::Email::MailSendmail - Subclass of Log::Dispatch::Email that uses 
 
 =head1 VERSION
 
-version 2.32
+version 2.33
 
 =head1 SYNOPSIS
 
@@ -82,7 +82,3 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-
-
-__END__
-

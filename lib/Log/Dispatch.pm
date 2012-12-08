@@ -1,6 +1,6 @@
 package Log::Dispatch;
 {
-  $Log::Dispatch::VERSION = '2.32';
+  $Log::Dispatch::VERSION = '2.33';
 }
 
 use 5.006;
@@ -264,7 +264,7 @@ sub is_emergency { $_[0]->would_log('emergency') }
 
 # ABSTRACT: Dispatches messages to one or more outputs
 
-
+__END__
 
 =pod
 
@@ -274,7 +274,7 @@ Log::Dispatch - Dispatches messages to one or more outputs
 
 =head1 VERSION
 
-version 2.32
+version 2.33
 
 =head1 SYNOPSIS
 
@@ -691,7 +691,3 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-
-
-__END__
-
