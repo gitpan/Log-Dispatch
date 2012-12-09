@@ -1,6 +1,6 @@
 package Log::Dispatch::Null;
 {
-  $Log::Dispatch::Null::VERSION = '2.33';
+  $Log::Dispatch::Null::VERSION = '2.34';
 }
 
 use strict;
@@ -37,7 +37,7 @@ Log::Dispatch::Null - Object that accepts messages and does nothing
 
 =head1 VERSION
 
-version 2.33
+version 2.34
 
 =head1 SYNOPSIS
 

@@ -1,6 +1,6 @@
 package Log::Dispatch::ApacheLog;
 {
-  $Log::Dispatch::ApacheLog::VERSION = '2.33';
+  $Log::Dispatch::ApacheLog::VERSION = '2.34';
 }
 
 use strict;
@@ -69,7 +69,7 @@ Log::Dispatch::ApacheLog - Object for logging to Apache::Log objects
 
 =head1 VERSION
 
-version 2.33
+version 2.34
 
 =head1 SYNOPSIS
 

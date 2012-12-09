@@ -1,6 +1,6 @@
 package Log::Dispatch::Email::MailSender;
 {
-  $Log::Dispatch::Email::MailSender::VERSION = '2.33';
+  $Log::Dispatch::Email::MailSender::VERSION = '2.34';
 }
 
 # By: Joseph Annino
@@ -72,7 +72,7 @@ Log::Dispatch::Email::MailSender - Subclass of Log::Dispatch::Email that uses th
 
 =head1 VERSION
 
-version 2.33
+version 2.34
 
 =head1 SYNOPSIS
 
