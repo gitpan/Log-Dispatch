@@ -1,6 +1,6 @@
 package Log::Dispatch::File::Locked;
 {
-  $Log::Dispatch::File::Locked::VERSION = '2.34';
+  $Log::Dispatch::File::Locked::VERSION = '2.35';
 }
 
 use strict;
@@ -39,7 +39,7 @@ Log::Dispatch::File::Locked - Subclass of Log::Dispatch::File to facilitate lock
 
 =head1 VERSION
 
-version 2.34
+version 2.35
 
 =head1 SYNOPSIS
 
@@ -62,7 +62,25 @@ version 2.34
 =head1 DESCRIPTION
 
 This module acts exactly like L<Log::Dispatch::File> except that it
-obtains an exclusive lock on the file before writing to it.
+obtains an exclusive lock on the file while opening it.
+
+=head1 CAVEATS
+
+B<DANGER!> Use very carefully in multi-process environments. Because the lock
+is obtained at file open time, not at write time, you may experience deadlocks
+in your system.
+
+You can partially work around this by using the C<close_after_write> option,
+which causes the file to be re-opened every time a log message is written.
+
+Alternatively, the C<syswrite> option does atomic writes, which may mean that
+you don't need locking at all.
+
+See  L<Log::Dispatch::File>) for details on these options.
+
+=head1 SEE ALSO
+
+L<perlfunc/flock>
 
 =head1 AUTHOR
 
