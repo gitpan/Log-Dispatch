@@ -1,6 +1,6 @@
 package Log::Dispatch::Null;
 {
-  $Log::Dispatch::Null::VERSION = '2.35';
+  $Log::Dispatch::Null::VERSION = '2.36';
 }
 
 use strict;
@@ -37,13 +37,14 @@ Log::Dispatch::Null - Object that accepts messages and does nothing
 
 =head1 VERSION
 
-version 2.35
+version 2.36
 
 =head1 SYNOPSIS
 
   use Log::Dispatch;
 
-  my $null = Log::Dispatch->new( outputs => [ ['Null'] ] );
+  my $null
+      = Log::Dispatch->new( outputs => [ [ 'Null', min_level => 'debug' ] ] );
 
   $null->emerg( "I've fallen and I can't get up" );
 

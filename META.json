@@ -4,7 +4,7 @@
       "Dave Rolsky <autarch@urth.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300028, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "Dist::Zilla version 4.300033, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "artistic_2"
    ],
@@ -27,7 +27,8 @@
       "runtime" : {
          "requires" : {
             "Class::Load" : "0",
-            "Params::Validate" : "0.15"
+            "Params::Validate" : "0.15",
+            "Sys::Syslog" : "0.25"
          }
       },
       "test" : {
@@ -49,6 +50,6 @@
          "web" : "http://git.urth.org/Log-Dispatch.git"
       }
    },
-   "version" : "2.35"
+   "version" : "2.36"
 }
 

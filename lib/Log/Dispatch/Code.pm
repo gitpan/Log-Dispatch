@@ -1,6 +1,6 @@
-package Log::Dispatch::Handle;
+package Log::Dispatch::Code;
 {
-  $Log::Dispatch::Handle::VERSION = '2.36';
+  $Log::Dispatch::Code::VERSION = '2.36';
 }
 
 use strict;
@@ -10,19 +10,19 @@ use Log::Dispatch::Output;
 
 use base qw( Log::Dispatch::Output );
 
-use Params::Validate qw(validate SCALAR ARRAYREF BOOLEAN);
+use Params::Validate qw(validate CODEREF);
 Params::Validate::validation_options( allow_extra => 1 );
 
 sub new {
     my $proto = shift;
     my $class = ref $proto || $proto;
 
-    my %p = validate( @_, { handle => { can => 'print' } } );
+    my %p = validate( @_, { code => CODEREF } );
 
     my $self = bless {}, $class;
 
     $self->_basic_init(%p);
-    $self->{handle} = $p{handle};
+    $self->{code} = $p{code};
 
     return $self;
 }
@@ -31,13 +31,14 @@ sub log_message {
     my $self = shift;
     my %p    = @_;
 
-    $self->{handle}->print( $p{message} )
-        or die "Cannot write to handle: $!";
+    delete $p{name};
+
+    $self->{code}->(%p);
 }
 
 1;
 
-# ABSTRACT: Object for logging to IO::Handle classes
+# ABSTRACT: Object for logging to a subroutine reference
 
 __END__
 
@@ -45,7 +46,7 @@ __END__
 
 =head1 NAME
 
-Log::Dispatch::Handle - Object for logging to IO::Handle classes
+Log::Dispatch::Code - Object for logging to a subroutine reference
 
 =head1 VERSION
 
@@ -58,20 +59,22 @@ version 2.36
   my $log = Log::Dispatch->new(
       outputs => [
           [
-              'Handle',
+              'Code',
               min_level => 'emerg',
-              handle    => $io_socket_object,
+              code      => \&_log_it,
           ],
       ]
   );
 
-  $log->emerg('I am the Lizard King!');
+  sub _log_it {
+      my %p = @_;
+
+      warn $p{message};
+  }
 
 =head1 DESCRIPTION
 
-This module supplies a very simple object for logging to some sort of
-handle object.  Basically, anything that implements a C<print()>
-method can be passed the object constructor and it should work.
+This module supplies a simple object for logging to a subroutine reference.
 
 =head1 CONSTRUCTOR
 
@@ -80,9 +83,26 @@ parameters documented in L<Log::Dispatch::Output>:
 
 =over 4
 
-=item * handle ($)
+=item * code ($)
 
-The handle object.  This object must implement a C<print()> method.
+The subroutine reference.
+
+=back
+
+=head1 HOW IT WORKS
+
+The subroutine you provide will be called with a hash of named arguments. The
+two arguments are:
+
+=over 4
+
+=item * level
+
+The log level of the message. This will be a string like "info" or "error".
+
+=item * message
+
+The message being logged.
 
 =back
 

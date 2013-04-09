@@ -1,6 +1,6 @@
 package Log::Dispatch::Syslog;
 {
-  $Log::Dispatch::Syslog::VERSION = '2.35';
+  $Log::Dispatch::Syslog::VERSION = '2.36';
 }
 
 use strict;
@@ -108,7 +108,7 @@ Log::Dispatch::Syslog - Object for logging to system log.
 
 =head1 VERSION
 
-version 2.35
+version 2.36
 
 =head1 SYNOPSIS
 

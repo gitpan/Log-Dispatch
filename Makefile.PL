@@ -11,10 +11,7 @@ use ExtUtils::MakeMaker 6.30;
 my %WriteMakefileArgs = (
   "ABSTRACT" => "Dispatches messages to one or more outputs",
   "AUTHOR" => "Dave Rolsky <autarch\@urth.org>",
-  "BUILD_REQUIRES" => {
-    "File::Temp" => 0,
-    "Test::More" => "0.88"
-  },
+  "BUILD_REQUIRES" => {},
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => "6.30"
   },
@@ -24,14 +21,32 @@ my %WriteMakefileArgs = (
   "NAME" => "Log::Dispatch",
   "PREREQ_PM" => {
     "Class::Load" => 0,
-    "Params::Validate" => "0.15"
+    "Params::Validate" => "0.15",
+    "Sys::Syslog" => "0.25"
   },
-  "VERSION" => "2.35",
+  "TEST_REQUIRES" => {
+    "File::Temp" => 0,
+    "Test::More" => "0.88"
+  },
+  "VERSION" => "2.36",
   "test" => {
     "TESTS" => "t/*.t"
   }
 );
 
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
+  my $tr = delete $WriteMakefileArgs{TEST_REQUIRES};
+  my $br = $WriteMakefileArgs{BUILD_REQUIRES};
+  for my $mod ( keys %$tr ) {
+    if ( exists $br->{$mod} ) {
+      $br->{$mod} = $tr->{$mod} if $tr->{$mod} > $br->{$mod};
+    }
+    else {
+      $br->{$mod} = $tr->{$mod};
+    }
+  }
+}
 
 unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
   my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
