@@ -1,6 +1,6 @@
 package Log::Dispatch::Output;
 {
-  $Log::Dispatch::Output::VERSION = '2.36';
+  $Log::Dispatch::Output::VERSION = '2.37';
 }
 
 use strict;
@@ -188,7 +188,7 @@ Log::Dispatch::Output - Base class for all Log::Dispatch::* objects
 
 =head1 VERSION
 
-version 2.36
+version 2.37
 
 =head1 SYNOPSIS
 
@@ -240,8 +240,10 @@ parameters accepted by this constructor.
 
 This should be called from a subclass's constructor.  Make sure to
 pass the arguments in @_ to it.  It sets the object's name and minimum
-level.  It also sets up two other attributes which are used by other
-Log::Dispatch::Output methods, level_names and level_numbers.
+level from the passed parameters  It also sets up two other attributes which
+are used by other Log::Dispatch::Output methods, level_names and level_numbers.
+Subclasses will perform parameter validation in this method, and must also call
+the superclass's method.
 
 =item * name
 
@@ -295,7 +297,7 @@ you create that you would like to work under the Log::Dispatch
 architecture.  Subclassing is fairly trivial.  For most subclasses, if
 you simply copy the code in the SYNOPSIS and then put some
 functionality into the C<log_message> method then you should be all
-set.  Please make sure to use the C<_basic_init> method as directed.
+set.  Please make sure to use the C<_basic_init> method as described above.
 
 The actual logging implementation should be done in a C<log_message>
 method that you write. B<Do not override C<log>!>.

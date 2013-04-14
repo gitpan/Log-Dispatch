@@ -1,6 +1,6 @@
 package Log::Dispatch::Base;
 {
-  $Log::Dispatch::Base::VERSION = '2.36';
+  $Log::Dispatch::Base::VERSION = '2.37';
 }
 
 use strict;
@@ -13,10 +13,10 @@ sub _get_callbacks {
     return unless exists $p{callbacks};
 
     return @{ $p{callbacks} }
-        if UNIVERSAL::isa( $p{callbacks}, 'ARRAY' );
+        if ref $p{callbacks} eq 'ARRAY';
 
     return $p{callbacks}
-        if UNIVERSAL::isa( $p{callbacks}, 'CODE' );
+        if ref $p{callbacks} eq 'CODE';
 
     return;
 }
@@ -60,7 +60,7 @@ Log::Dispatch::Base - Code shared by dispatch and output objects.
 
 =head1 VERSION
 
-version 2.36
+version 2.37
 
 =head1 SYNOPSIS
 

@@ -1,6 +1,6 @@
 package Log::Dispatch::File;
 {
-  $Log::Dispatch::File::VERSION = '2.36';
+  $Log::Dispatch::File::VERSION = '2.37';
 }
 
 use strict;
@@ -29,13 +29,15 @@ sub new {
     my $self = bless {}, $class;
 
     $self->_basic_init(%p);
-    $self->_make_handle(%p);
+    $self->_make_handle;
 
     return $self;
 }
 
-sub _make_handle {
+sub _basic_init {
     my $self = shift;
+
+    $self->SUPER::_basic_init(@_);
 
     my %p = validate(
         @_,
@@ -61,13 +63,18 @@ sub _make_handle {
                 type     => SCALAR,
                 optional => 1
             },
+            syswrite => {
+                type    => BOOLEAN,
+                default => 0
+            },
         }
     );
 
     $self->{filename}    = $p{filename};
+    $self->{binmode}     = $p{binmode};
+    $self->{autoflush}   = $p{autoflush};
     $self->{close}       = $p{close_after_write};
     $self->{permissions} = $p{permissions};
-    $self->{binmode}     = $p{binmode};
     $self->{syswrite}    = $p{syswrite};
 
     if ( $self->{close} ) {
@@ -88,10 +95,12 @@ sub _make_handle {
         $self->{mode} = '>';
     }
 
-    $self->{autoflush} = $p{autoflush};
+}
 
-    $self->_open_file() unless $p{close_after_write};
+sub _make_handle {
+    my $self = shift;
 
+    $self->_open_file() unless $self->{close};
 }
 
 sub _open_file {
@@ -173,7 +182,7 @@ Log::Dispatch::File - Object for logging to files
 
 =head1 VERSION
 
-version 2.36
+version 2.37
 
 =head1 SYNOPSIS
 

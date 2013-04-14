@@ -27,6 +27,8 @@ t/00-compile.t
 t/01-basic.t
 t/02-email-exit.t
 t/03-short-syntax.t
+t/04-binmode.t
+t/05-close-after-write.t
 t/email-exit-helper.pl
 t/lib/Log/Dispatch/TestUtil.pm
 t/release-cpan-changes.t
