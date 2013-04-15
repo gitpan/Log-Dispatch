@@ -1,11 +1,11 @@
 
 
 This archive contains the distribution Log-Dispatch,
-version 2.37:
+version 2.38:
 
   Dispatches messages to one or more outputs
 
-This software is Copyright (c) 2011 by Dave Rolsky.
+This software is Copyright (c) 2013 by Dave Rolsky.
 
 This is free software, licensed under:
 
