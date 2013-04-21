@@ -1,6 +1,6 @@
 package Log::Dispatch::Output;
 {
-  $Log::Dispatch::Output::VERSION = '2.38';
+  $Log::Dispatch::Output::VERSION = '2.39';
 }
 
 use strict;
@@ -188,7 +188,7 @@ Log::Dispatch::Output - Base class for all Log::Dispatch::* objects
 
 =head1 VERSION
 
-version 2.38
+version 2.39
 
 =head1 SYNOPSIS
 

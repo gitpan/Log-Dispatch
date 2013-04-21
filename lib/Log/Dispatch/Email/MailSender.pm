@@ -1,6 +1,6 @@
 package Log::Dispatch::Email::MailSender;
 {
-  $Log::Dispatch::Email::MailSender::VERSION = '2.38';
+  $Log::Dispatch::Email::MailSender::VERSION = '2.39';
 }
 
 # By: Joseph Annino
@@ -24,10 +24,12 @@ sub new {
     my %p = @_;
 
     my $smtp = delete $p{smtp} || 'localhost';
+    my $port = delete $p{port} || '25';
 
     my $self = $class->SUPER::new(%p);
 
     $self->{smtp} = $smtp;
+    $self->{port} = $port;
 
     return $self;
 }
@@ -45,6 +47,7 @@ sub send_email {
                 to      => ( join ',', @{ $self->{to} } ),
                 subject => $self->{subject},
                 smtp    => $self->{smtp},
+                port    => $self->{port},
             }
         );
 
@@ -72,7 +75,7 @@ Log::Dispatch::Email::MailSender - Subclass of Log::Dispatch::Email that uses th
 
 =head1 VERSION
 
-version 2.38
+version 2.39
 
 =head1 SYNOPSIS
 
@@ -95,6 +98,23 @@ version 2.38
 
 This is a subclass of L<Log::Dispatch::Email> that implements the send_email
 method using the L<Mail::Sender> module.
+
+=head1 CONSTRUCTOR
+
+The constructor takes the following parameters in addition to the parameters
+documented in L<Log::Dispatch::Output> and L<Log::Dispatch::Email>:
+
+=over 4
+
+=item * smtp ($)
+
+The smtp server to connect to. This defaults to "localhost".
+
+=item * port ($)
+
+The port to use when connecting. This defaults to 25.
+
+=back
 
 =head1 AUTHOR
 
