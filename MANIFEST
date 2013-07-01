@@ -11,6 +11,7 @@ lib/Log/Dispatch.pm
 lib/Log/Dispatch/ApacheLog.pm
 lib/Log/Dispatch/Base.pm
 lib/Log/Dispatch/Code.pm
+lib/Log/Dispatch/Conflicts.pm
 lib/Log/Dispatch/Email.pm
 lib/Log/Dispatch/Email/MIMELite.pm
 lib/Log/Dispatch/Email/MailSend.pm

@@ -1,6 +1,6 @@
 package Log::Dispatch;
 {
-  $Log::Dispatch::VERSION = '2.39';
+  $Log::Dispatch::VERSION = '2.40';
 }
 
 use 5.006;
@@ -274,7 +274,7 @@ Log::Dispatch - Dispatches messages to one or more outputs
 
 =head1 VERSION
 
-version 2.39
+version 2.40
 
 =head1 SYNOPSIS
 
