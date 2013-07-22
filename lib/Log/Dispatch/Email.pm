@@ -1,6 +1,6 @@
 package Log::Dispatch::Email;
 {
-  $Log::Dispatch::Email::VERSION = '2.40';
+  $Log::Dispatch::Email::VERSION = '2.41';
 }
 
 use strict;
@@ -104,7 +104,7 @@ Log::Dispatch::Email - Base class for objects that send log messages via email
 
 =head1 VERSION
 
-version 2.40
+version 2.41
 
 =head1 SYNOPSIS
 

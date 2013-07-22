@@ -1,6 +1,6 @@
 package Log::Dispatch;
 {
-  $Log::Dispatch::VERSION = '2.40';
+  $Log::Dispatch::VERSION = '2.41';
 }
 
 use 5.006;
@@ -231,7 +231,10 @@ sub output {
 
 sub level_is_valid {
     shift;
-    return $LEVELS{ shift() };
+    my $level = shift
+        or Carp::croak('Logging level was not provided');
+
+    return $LEVELS{$level};
 }
 
 sub would_log {
@@ -274,7 +277,7 @@ Log::Dispatch - Dispatches messages to one or more outputs
 
 =head1 VERSION
 
-version 2.40
+version 2.41
 
 =head1 SYNOPSIS
 

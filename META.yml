@@ -23,6 +23,6 @@ requires:
 resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Log-Dispatch
   repository: git://git.urth.org/Log-Dispatch.git
-version: 2.40
+version: 2.41
 x_breaks:
   Log::Dispatch::File::Stamped: 0.10

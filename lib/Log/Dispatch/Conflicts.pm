@@ -26,7 +26,7 @@ Log::Dispatch::Conflicts - Provide information on conflicts for Log::Dispatch
 
 =head1 VERSION
 
-version 2.40
+version 2.41
 
 =head1 AUTHOR
 

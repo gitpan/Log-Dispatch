@@ -1,6 +1,6 @@
 package Log::Dispatch::Handle;
 {
-  $Log::Dispatch::Handle::VERSION = '2.40';
+  $Log::Dispatch::Handle::VERSION = '2.41';
 }
 
 use strict;
@@ -49,7 +49,7 @@ Log::Dispatch::Handle - Object for logging to IO::Handle classes
 
 =head1 VERSION
 
-version 2.40
+version 2.41
 
 =head1 SYNOPSIS
 
