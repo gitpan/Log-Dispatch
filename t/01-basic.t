@@ -2,15 +2,18 @@ use strict;
 use warnings;
 
 use Test::More 0.88;
+use Test::Fatal;
 
 use File::Spec;
 use File::Temp qw( tempdir );
+use Module::Runtime qw( use_module );
 
 use Log::Dispatch;
 
 my %tests;
 
 BEGIN {
+    local $@;
     foreach (qw( MailSend MIMELite MailSendmail MailSender )) {
         eval "use Log::Dispatch::Email::$_";
         $tests{$_} = !$@;
@@ -73,6 +76,16 @@ ok( $dispatch, "created Log::Dispatch object" );
             syswrite  => 1,
             filename  => $debug_log
         )
+    );
+
+    my %outputs = map { $_->name() => ref $_ } $dispatch->outputs();
+    is_deeply(
+        \%outputs,
+        {
+            file1 => 'Log::Dispatch::File',
+            file2 => 'Log::Dispatch::File',
+        },
+        '->outputs() method returns all output objects'
     );
 
     $dispatch->log( level => 'info',  message => "info level 2\n" );
@@ -375,6 +388,42 @@ SKIP:
         $string, 'REVERSE',
         "callback to reverse and uppercase text"
     );
+
+    is_deeply(
+        [ $dispatch->callbacks() ],
+        [ $reverse, $uc ],
+        '->callbacks() method returns all of the callback subs'
+    );
+
+    my $clone = $dispatch->clone();
+    is_deeply(
+        $clone,
+        $dispatch,
+        'clone is a shallow clone of the original object'
+    );
+
+    $clone->add(
+        Log::Dispatch::Screen->new(
+            name      => 'screen',
+            min_level => 'debug',
+        )
+    );
+    my @orig_outputs  = map { $_->name() } $dispatch->outputs();
+    my @clone_outputs = map { $_->name() } $clone->outputs();
+    isnt(
+        scalar(@orig_outputs),
+        scalar(@clone_outputs),
+        'clone is not the same as original after adding an output'
+    );
+
+    $clone->add_callback( sub { return 'foo' } );
+    my @orig_cb  = $dispatch->callbacks();
+    my @clone_cb = $clone->callbacks();
+    isnt(
+        scalar(@orig_cb),
+        scalar(@clone_cb),
+        'clone is not the same as original after adding a callback'
+    );
 }
 
 # Log::Dispatch::Output single callback
@@ -554,9 +603,9 @@ SKIP:
         ],
     );
 
-    eval { $dispatch->log( msg => "Message" ) };
     like(
-        $@, qr/Logging level was not provided at .* line \d+./,
+        exception { $dispatch->log( msg => "Message" ) },
+        qr/Logging level was not provided at .* line \d+./,
         "Provide calling line if level not provided"
     );
 }
@@ -879,26 +928,26 @@ SKIP:
         )
     );
 
-    eval {
+    my $e = exception {
         $dispatch->log_and_die(
             level   => 'error',
             message => 'this is my message',
         );
     };
 
-    my $e = $@;
-
     ok( $e, 'died when calling log_and_die()' );
     like( $e, qr{this is my message},     'error contains expected message' );
-    like( $e, qr{01-basic\.t line 8\d\d}, 'error croaked' );
+    like( $e, qr{01-basic\.t line 9\d\d}, 'error croaked' );
 
     is( $string, 'this is my message', 'message is logged' );
 
     undef $string;
 
-    eval { Croaker::croak($dispatch); };
-
-    $e = $@;
+    $e = do {
+        local $@;
+        eval { Croaker::croak($dispatch) };
+        $@;
+    };
 
     ok( $e, 'died when calling log_and_croak()' );
     like( $e, qr{croak}, 'error contains expected message' );
@@ -996,44 +1045,6 @@ SKIP:
     $dispatch->add_callback( sub { return 'bar' } );
     $dispatch->log( level => 'debug', message => 'foo' );
     is( $string, 'bar', 'second call, callback overrides message' );
-}
-
-SKIP:
-{
-    skip 'Cannot do syslog tests without Sys::Syslog 0.16+', 2
-        unless eval "use Log::Dispatch::Syslog; 1;";
-
-    no warnings 'redefine', 'once';
-
-    my @sock;
-    local *Sys::Syslog::setlogsock = sub { @sock = @_ };
-
-    local *Sys::Syslog::openlog  = sub { return 1 };
-    local *Sys::Syslog::closelog = sub { return 1 };
-
-    my @log;
-    local *Sys::Syslog::syslog = sub { push @log, [@_] };
-
-    my $dispatch = Log::Dispatch->new;
-    $dispatch->add(
-        Log::Dispatch::Syslog->new(
-            name      => 'syslog',
-            min_level => 'debug',
-        )
-    );
-
-    ok(
-        !@sock,
-        'no call to stelogsock unless socket is set explicitly'
-    );
-
-    $dispatch->info('Foo');
-
-    is_deeply(
-        \@log,
-        [ [ 'INFO', 'Foo' ] ],
-        'passed message to syslog'
-    );
 }
 
 {
