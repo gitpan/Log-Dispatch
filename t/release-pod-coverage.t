@@ -13,7 +13,7 @@ use Test::Pod::Coverage 1.08;
 use Test::More 0.88;
 use Pod::Coverage::TrustPod;
 
-my %skip = map { $_ => 1 } qw( Log::Dispatch::ApacheLog );
+my %skip = map { $_ => 1 } qw( Log::Dispatch::ApacheLog Log::Dispatch::Conflicts );
 
 my @modules;
 for my $module ( all_modules() ) {

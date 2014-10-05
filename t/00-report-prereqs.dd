@@ -19,6 +19,7 @@ do { my $x = {
        'runtime' => {
                       'requires' => {
                                       'Carp' => '0',
+                                      'Devel::GlobalDestruction' => '0',
                                       'Dist::CheckConflicts' => '0.02',
                                       'Fcntl' => '0',
                                       'Module::Runtime' => '0',

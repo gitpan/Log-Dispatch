@@ -60,6 +60,7 @@ subclasses
 uucp
 Dave
 autarch
+devnull
 Karen
 Etheridge
 ether
@@ -69,12 +70,11 @@ olaf
 Ross
 Attrill
 ross
+swartz
+unknown
 Whitney
 Jackson
 whitney
-devnull
-swartz
-unknown
 lib
 Log
 Dispatch

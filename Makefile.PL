@@ -23,6 +23,7 @@ my %WriteMakefileArgs = (
   "NAME" => "Log::Dispatch",
   "PREREQ_PM" => {
     "Carp" => 0,
+    "Devel::GlobalDestruction" => 0,
     "Dist::CheckConflicts" => "0.02",
     "Fcntl" => 0,
     "Module::Runtime" => 0,
@@ -47,7 +48,7 @@ my %WriteMakefileArgs = (
     "Test::Requires" => 0,
     "lib" => 0
   },
-  "VERSION" => "2.42",
+  "VERSION" => "2.43",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -57,6 +58,7 @@ my %WriteMakefileArgs = (
 my %FallbackPrereqs = (
   "Carp" => 0,
   "Data::Dumper" => 0,
+  "Devel::GlobalDestruction" => 0,
   "Dist::CheckConflicts" => "0.02",
   "Exporter" => 0,
   "ExtUtils::MakeMaker" => 0,

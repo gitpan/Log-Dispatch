@@ -1,3 +1,20 @@
+2.43     2014-10-05
+
+- Fixed the thread locking in Log::Dispatch::Syslog (I hope). The previous
+  version caused Perl to crash when per-thread locking was enabled. Note that
+  I don't use threads so I haven't tested this. Patch by Sergio Fernández
+  Muñoz. RT # 99208.
+
+- If a buffered email output is being destroyed during global destruction and
+  still has messages in the buffer, we warn and do not attempt to send the
+  messages. During global destruction, the package we use to send email may
+  already be destroyed, leading to weird errors when we try to use
+  it. Reported by Mark Overmeer. RT #97733.
+
+- In 2.42 I added the ability to pass a hashref for the socket parameter given
+  to Log::Dispatch::Syslog, but I forgot to mention this here. This is
+  necessary to support remote logging. Patch by David Coppit. RT #93045.
+
 2.42     2014-08-12
 
 - Added a Log::Dispatch->clone() method. This returns shallow clone. The
