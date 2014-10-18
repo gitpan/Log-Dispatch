@@ -26,52 +26,52 @@ name: Log-Dispatch
 provides:
   Log::Dispatch:
     file: lib/Log/Dispatch.pm
-    version: '2.43'
+    version: '2.44'
   Log::Dispatch::ApacheLog:
     file: lib/Log/Dispatch/ApacheLog.pm
-    version: '2.43'
+    version: '2.44'
   Log::Dispatch::Base:
     file: lib/Log/Dispatch/Base.pm
-    version: '2.43'
+    version: '2.44'
   Log::Dispatch::Code:
     file: lib/Log/Dispatch/Code.pm
-    version: '2.43'
+    version: '2.44'
   Log::Dispatch::Email:
     file: lib/Log/Dispatch/Email.pm
-    version: '2.43'
+    version: '2.44'
   Log::Dispatch::Email::MIMELite:
     file: lib/Log/Dispatch/Email/MIMELite.pm
-    version: '2.43'
+    version: '2.44'
   Log::Dispatch::Email::MailSend:
     file: lib/Log/Dispatch/Email/MailSend.pm
-    version: '2.43'
+    version: '2.44'
   Log::Dispatch::Email::MailSender:
     file: lib/Log/Dispatch/Email/MailSender.pm
-    version: '2.43'
+    version: '2.44'
   Log::Dispatch::Email::MailSendmail:
     file: lib/Log/Dispatch/Email/MailSendmail.pm
-    version: '2.43'
+    version: '2.44'
   Log::Dispatch::File:
     file: lib/Log/Dispatch/File.pm
-    version: '2.43'
+    version: '2.44'
   Log::Dispatch::File::Locked:
     file: lib/Log/Dispatch/File/Locked.pm
-    version: '2.43'
+    version: '2.44'
   Log::Dispatch::Handle:
     file: lib/Log/Dispatch/Handle.pm
-    version: '2.43'
+    version: '2.44'
   Log::Dispatch::Null:
     file: lib/Log/Dispatch/Null.pm
-    version: '2.43'
+    version: '2.44'
   Log::Dispatch::Output:
     file: lib/Log/Dispatch/Output.pm
-    version: '2.43'
+    version: '2.44'
   Log::Dispatch::Screen:
     file: lib/Log/Dispatch/Screen.pm
-    version: '2.43'
+    version: '2.44'
   Log::Dispatch::Syslog:
     file: lib/Log/Dispatch/Syslog.pm
-    version: '2.43'
+    version: '2.44'
 requires:
   Carp: '0'
   Devel::GlobalDestruction: '0'
@@ -91,7 +91,7 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Log-Dispatch
   homepage: http://metacpan.org/release/Log-Dispatch
   repository: git://github.com/autarch/Log-Dispatch.git
-version: '2.43'
+version: '2.44'
 x_Dist_Zilla:
   perl:
     version: '5.016003'
@@ -176,7 +176,7 @@ x_Dist_Zilla:
           phase: release
           skip: []
       name: '@DROLSKY/stale modules, release'
-      version: '0.027'
+      version: '0.028'
     -
       class: Dist::Zilla::Plugin::ReadmeAnyFromPod
       name: '@DROLSKY/ReadmeMarkdownInBuild'
@@ -405,7 +405,7 @@ x_Dist_Zilla:
         Dist::Zilla::Role::Git::Repo:
           repo_root: .
       name: '@DROLSKY/Git::Check'
-      version: '2.024'
+      version: '2.025'
     -
       class: Dist::Zilla::Plugin::Git::Commit
       config:
@@ -423,21 +423,21 @@ x_Dist_Zilla:
         Dist::Zilla::Role::Git::Repo:
           repo_root: .
       name: '@DROLSKY/Git::Commit'
-      version: '2.024'
+      version: '2.025'
     -
       class: Dist::Zilla::Plugin::Git::Tag
       config:
         Dist::Zilla::Plugin::Git::Tag:
           branch: ~
           signed: 0
-          tag: v2.43
+          tag: v2.44
           tag_format: v%v
           tag_message: v%v
           time_zone: local
         Dist::Zilla::Role::Git::Repo:
           repo_root: .
       name: '@DROLSKY/Git::Tag'
-      version: '2.024'
+      version: '2.025'
     -
       class: Dist::Zilla::Plugin::Git::Push
       config:
@@ -448,7 +448,7 @@ x_Dist_Zilla:
         Dist::Zilla::Role::Git::Repo:
           repo_root: .
       name: '@DROLSKY/Git::Push'
-      version: '2.024'
+      version: '2.025'
     -
       class: Dist::Zilla::Plugin::Conflicts
       name: Conflicts

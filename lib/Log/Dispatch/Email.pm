@@ -1,5 +1,5 @@
 package Log::Dispatch::Email;
-$Log::Dispatch::Email::VERSION = '2.43';
+$Log::Dispatch::Email::VERSION = '2.44';
 use strict;
 use warnings;
 
@@ -85,7 +85,10 @@ sub flush {
 sub DESTROY {
     my $self = shift;
 
-    if ( in_global_destruction() && @{ $self->{buffer} } ) {
+    if (   in_global_destruction()
+        && $self->{buffered}
+        && @{ $self->{buffer} } ) {
+
         my $name  = $self->name();
         my $class = ref $self;
         my $message
@@ -114,7 +117,7 @@ Log::Dispatch::Email - Base class for objects that send log messages via email
 
 =head1 VERSION
 
-version 2.43
+version 2.44
 
 =head1 SYNOPSIS
 
